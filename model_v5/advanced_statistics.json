@@ -1,0 +1,10 @@
+{
+  "pearson_correlation": 0.7416015863418579,
+  "pearson_p_value": 9.141232234363877e-106,
+  "interval_accuracy": 0.6566666666666666,
+  "adjacent_interval_accuracy": 1.0,
+  "mean_difference": 0.02882290445268154,
+  "std_difference": 4.638370037078857,
+  "upper_limit_agreement": 9.120028495788574,
+  "lower_limit_agreement": -9.062382698059082
+}
