@@ -360,12 +360,31 @@ KNOWLEDGE_BASE = {
             "question": "Apa itu kernel dalam sistem operasi?",
             "reference_answer": "Kernel adalah inti dari sistem operasi yang bertanggung jawab untuk mengelola sumber daya komputer dan menyediakan layanan dasar untuk aplikasi."
         }
+    ],
+    "Pemrograman Dasar": [
+        {
+            "question": "Apa itu komputer?",
+            "reference_answer": "Komputer adalah perangkat elektronik yang digunakan untuk memproses data dan menjalankan program. Komputer terdiri dari berbagai komponen seperti CPU, RAM, penyimpanan, dan perangkat input/output. Komputer dapat digunakan untuk berbagai keperluan seperti bekerja, belajar, hiburan, dan komunikasi."
+        },
+        {
+            "question": "Jelaskan konsep variabel dalam pemrograman!",
+            "reference_answer": "Variabel adalah tempat penyimpanan data yang dapat berubah selama program berjalan. Variabel memiliki nama dan tipe data tertentu, seperti integer, string, atau boolean. Variabel digunakan untuk menyimpan nilai sementara yang dibutuhkan dalam proses perhitungan atau logika program."
+        },
+        {
+            "question": "Apa itu fungsi dalam pemrograman?",
+            "reference_answer": "Fungsi adalah blok kode yang dirancang untuk melakukan tugas tertentu. Fungsi dapat menerima input berupa parameter dan mengembalikan output setelah menjalankan proses di dalamnya. Fungsi membantu memecah program menjadi bagian-bagian yang lebih kecil dan lebih mudah dikelola, serta memungkinkan penggunaan kembali kode."
+        },
+        {
+            "question": "Jelaskan perbedaan antara bahasa pemrograman tingkat tinggi dan tingkat rendah!",
+            "reference_answer": "Bahasa pemrograman tingkat tinggi adalah bahasa yang lebih mudah dipahami oleh manusia, seperti Python, Java, atau C++. Bahasa ini memiliki sintaks yang lebih sederhana dan abstraksi yang lebih tinggi. Sedangkan bahasa pemrograman tingkat rendah, seperti Assembly atau bahasa mesin, lebih dekat dengan instruksi hardware dan memerlukan pemahaman yang lebih mendalam tentang arsitektur komputer."
+        },
+        {
+            "question": "Apa itu algoritma dalam pemrograman?",
+            "reference_answer": "Algoritma adalah serangkaian langkah atau instruksi yang digunakan untuk menyelesaikan suatu masalah atau tugas tertentu. Algoritma harus jelas, terstruktur, dan dapat diimplementasikan dalam kode program. Algoritma digunakan untuk mengoptimalkan proses dan meningkatkan efisiensi dalam pemrograman."
+        }
     ]
 }
 
-# =====================================
-# VARIATION GENERATOR
-# =====================================
 # =====================================
 # ADVANCED ESSAY GENERATOR
 # =====================================
