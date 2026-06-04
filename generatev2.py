@@ -2,16 +2,123 @@ import pandas as pd
 import numpy as np
 import random
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 
 random.seed(42)
 np.random.seed(42)
+
+sbert_model = SentenceTransformer(
+    'firqaaa/indo-sentence-bert-base'
+)
 
 # =====================================
 # DATABASE DATASET (Bisa dipindah ke JSON/CSV)
 # =====================================
 # Struktur ini memudahkan penambahan matakuliah baru tanpa menyentuh logika kode
 KNOWLEDGE_BASE = {
+    "PENGANTAR ILMU KOMPUTER": [
+        {
+            "question": "Apa itu komputer?",
+            "reference_answer": "Komputer adalah perangkat elektronik yang dapat memproses data dan menjalankan program untuk melakukan berbagai tugas."
+        },
+        {
+            "question": "Jelaskan sejarah singkat komputer",
+            "reference_answer": "Sejarah komputer dimulai dari mesin hitung mekanik pada abad ke-17 hingga perkembangan komputer digital modern pada abad ke-20."
+        },
+        {
+            "question": "Apa fungsi utama dari sistem operasi?",
+            "reference_answer": "Sistem operasi berfungsi untuk mengelola perangkat keras komputer dan menyediakan layanan untuk program aplikasi."
+        },
+        {
+            "question": "Jelaskan perbedaan antara hardware dan software",
+            "reference_answer": "Hardware adalah komponen fisik dari komputer, sedangkan software adalah program dan data yang dijalankan oleh hardware."
+        },
+        {
+            "question": "Apa itu algoritma dalam konteks ilmu komputer?",
+            "reference_answer": "Algoritma adalah serangkaian langkah atau instruksi yang digunakan untuk menyelesaikan suatu masalah atau tugas tertentu."
+        },
+        {
+            "question": "Jelaskan konsep pemrograman",
+            "reference_answer": "Pemrograman adalah proses menulis kode untuk membuat program komputer yang dapat menjalankan tugas tertentu."
+        }
+    ],
+    "Rekayasa Perangkat Lunak": [
+        {
+            "question": "Apa itu rekayasa perangkat lunak?",
+            "reference_answer": "Rekayasa perangkat lunak adalah disiplin ilmu yang mempelajari proses pengembangan perangkat lunak secara sistematis, terstruktur, dan terukur untuk menghasilkan perangkat lunak yang berkualitas."     
+        },
+        {
+            "question": "Jelaskan model pengembangan perangkat lunak Waterfall",
+            "reference_answer": "Model Waterfall adalah model pengembangan perangkat lunak yang mengikuti urutan tahapan yang kaku, yaitu analisis kebutuhan, desain, implementasi, pengujian, dan pemeliharaan."
+        },
+        {
+            "question": "Apa itu Agile dalam konteks rekayasa perangkat lunak?",
+            "reference_answer": "Agile adalah pendekatan pengembangan perangkat lunak yang menekankan kolaborasi, fleksibilitas, dan iterasi cepat untuk menghasilkan perangkat lunak yang sesuai dengan kebutuhan pengguna."
+        },
+        {
+            "question": "Jelaskan perbedaan antara testing dan debugging",
+            "reference_answer": "Testing adalah proses untuk menemukan kesalahan dalam perangkat lunak, sedangkan debugging adalah proses untuk memperbaiki kesalahan yang ditemukan selama testing."
+        },
+        {
+            "question": "Apa itu version control system?",
+            "reference_answer": "Version control system adalah alat yang digunakan untuk mengelola perubahan pada kode sumber perangkat lunak, memungkinkan tim untuk bekerja secara kolaboratif dan melacak perubahan dengan mudah."
+        },
+        {
+            "question": "Jelaskan konsep continuous integration dalam rekayasa perangkat lunak",
+            "reference_answer": "Continuous integration adalah praktik di mana pengembang secara rutin menggabungkan perubahan kode ke dalam repositori bersama, diikuti dengan otomatisasi build dan testing untuk mendeteksi masalah lebih awal."
+        },
+        {
+            "question": "Apa itu technical debt dalam rekayasa perangkat lunak?",
+            "reference_answer": "Technical debt adalah istilah yang digunakan untuk menggambarkan konsekuensi dari memilih solusi cepat atau tidak optimal dalam pengembangan perangkat lunak, yang dapat menyebabkan masalah di masa depan jika tidak ditangani."
+        },
+        {
+            "question": "Jelaskan perbedaan antara functional requirement dan non-functional requirement",
+            "reference_answer": "Functional requirement menjelaskan apa yang harus dilakukan oleh sistem, sedangkan non-functional requirement menjelaskan bagaimana sistem harus berperilaku atau kualitas yang harus dimiliki."
+        },
+        {
+            "question": "Apa itu software architecture?",
+            "reference_answer": "Software architecture adalah struktur organisasi dari sistem perangkat lunak, termasuk komponen-komponen utama dan hubungan antar komponen tersebut."
+        }
+    ],
+    "PENGANTAR ILMU KOMPUTER": [
+        {
+            "question": "Apa itu komputer?",
+            "reference_answer": "Komputer adalah perangkat elektronik yang dapat memproses data dan menjalankan program untuk melakukan berbagai tugas."
+        },
+        {
+            "question": "Jelaskan sejarah singkat komputer",
+            "reference_answer": "Komputer pertama kali dikembangkan pada abad ke-20 dengan mesin seperti ENIAC, dan terus berkembang hingga menjadi komputer modern yang kita kenal sekarang."
+        },
+        {
+            "question": "Apa fungsi utama dari sistem operasi?",
+            "reference_answer": "Sistem operasi berfungsi untuk mengelola perangkat keras komputer dan menyediakan layanan untuk program aplikasi."
+        },
+        {
+            "question": "Jelaskan perbedaan antara hardware dan software",
+            "reference_answer": "Hardware adalah komponen fisik dari komputer, sedangkan software adalah program dan data yang dijalankan oleh hardware."
+        },
+        {
+            "question": "Apa itu algoritma dalam konteks ilmu komputer?",
+            "reference_answer": "Algoritma adalah serangkaian langkah atau instruksi yang digunakan untuk menyelesaikan suatu masalah atau tugas tertentu."
+        },
+        {
+            "question": "Jelaskan konsep pemrograman",
+            "reference_answer": "Pemrograman adalah proses menulis kode untuk membuat program komputer yang dapat menjalankan tugas tertentu."
+        },
+        {
+            "question": "Apa itu jaringan komputer?",
+            "reference_answer": "Jaringan komputer adalah kumpulan komputer yang terhubung satu sama lain untuk berbagi sumber daya dan informasi."
+        },
+        {
+            "question": "Jelaskan perbedaan antara internet dan intranet",
+            "reference_answer": "Internet adalah jaringan global yang menghubungkan jutaan komputer di seluruh dunia, sedangkan intranet adalah jaringan pribadi yang digunakan dalam organisasi untuk berbagi informasi secara internal."
+        },
+        {
+            "question": "Apa itu keamanan siber?",
+            "reference_answer": "Keamanan siber adalah praktik melindungi sistem komputer, jaringan, dan data dari serangan digital atau akses yang tidak sah."
+        }
+    ],
     "Struktur Data": [
         {
             "question": "Jelaskan pengertian linked list",
@@ -102,7 +209,7 @@ KNOWLEDGE_BASE = {
             "reference_answer": "SQL adalah bahasa query untuk basis data relasional, sedangkan NoSQL adalah jenis basis data yang tidak menggunakan tabel relasional."
         }
     ], 
-    "Algoritma": [
+    "Algoritma Pemrograman": [
         {
             "question": "Apa itu algoritma sorting?",
             "reference_answer": "Algoritma sorting adalah metode untuk mengurutkan elemen dalam sebuah list atau array."
@@ -259,27 +366,216 @@ KNOWLEDGE_BASE = {
 # =====================================
 # VARIATION GENERATOR
 # =====================================
+# =====================================
+# ADVANCED ESSAY GENERATOR
+# =====================================
+
+FILLER_SENTENCES = [
+    "Contoh penerapannya sering ditemukan dalam sistem modern.",
+    "Konsep ini penting dalam dunia teknologi informasi.",
+    "Metode tersebut banyak digunakan dalam pengembangan aplikasi.",
+    "Hal ini membantu meningkatkan efisiensi sistem.",
+    "Pendekatan tersebut digunakan dalam berbagai kasus."
+]
+
+OFFTOPIC_ANSWERS = [
+    "Saya suka belajar pemrograman di kampus.",
+    "Database digunakan untuk menyimpan data.",
+    "Jaringan internet sangat penting saat ini.",
+    "Mahasiswa harus rajin belajar setiap hari.",
+    "Python adalah bahasa pemrograman populer."
+]
+
+WEAK_ANSWERS = [
+    "kurang paham",
+    "tidak tahu",
+    "belum mengerti",
+    "digunakan di komputer",
+    "untuk sistem"
+]
+
+CONTRADICTION_PHRASES = [
+    "tetapi konsep tersebut tidak digunakan lagi",
+    "namun metode tersebut sudah tidak relevan",
+    "meskipun sebenarnya tidak diperlukan",
+    "tetapi sistem tersebut jarang dipakai"
+]
+
+
+def add_typo(text, typo_rate=0.08):
+
+    chars = list(text)
+
+    for i in range(len(chars)):
+
+        if random.random() < typo_rate:
+
+            if chars[i].isalpha():
+
+                chars[i] = random.choice('abcdefghijklmnopqrstuvwxyz')
+
+    return ''.join(chars)
+
+
+def shuffle_partial(words, ratio=0.5):
+
+    keep = random.sample(
+        words,
+        max(3, int(len(words) * ratio))
+    )
+
+    random.shuffle(keep)
+
+    return " ".join(keep)
+
+
 def generate_student_answer(reference):
+
     words = reference.split()
-    mode = random.choice(["excellent", "good", "medium", "poor", "copy"])
+
+    mode = random.choices(
+        population=[
+            "excellent",
+            "good",
+            "partial",
+            "weak",
+            "poor",
+            "offtopic",
+            "contradictory",
+            "copy"
+        ],
+        weights=[
+            15,
+            20,
+            20,
+            10,
+            10,
+            10,
+            10,
+            5
+        ],
+        k=1
+    )[0]
+
+    # =====================================
+    # EXCELLENT
+    # =====================================
 
     if mode == "excellent":
-        extra = random.choice([
-            "Contohnya sering digunakan pada implementasi aplikasi.",
-            "Struktur ini sangat penting dalam pemrograman.",
-            "Biasanya digunakan dalam sistem komputer."
-        ])
-        return reference + " " + extra
+
+        extra = random.choice(
+            FILLER_SENTENCES
+        )
+
+        answer = (
+            reference +
+            " " +
+            extra
+        )
+
+        if random.random() < 0.2:
+            answer = add_typo(answer, 0.02)
+
+        return answer
+
+    # =====================================
+    # GOOD
+    # =====================================
+
     elif mode == "good":
-        keep = random.sample(words, max(3, len(words) - 3))
-        return " ".join(keep)
-    elif mode == "medium":
-        keep = random.sample(words, max(3, len(words) // 2))
-        typo = random.choice(["jadi", "digunakan", "biasanya"])
-        return " ".join(keep) + " " + typo
+
+        keep = random.sample(
+            words,
+            max(5, len(words) - 2)
+        )
+
+        answer = " ".join(keep)
+
+        if random.random() < 0.3:
+            answer += " " + random.choice(FILLER_SENTENCES)
+
+        return answer
+
+    # =====================================
+    # PARTIAL
+    # =====================================
+
+    elif mode == "partial":
+
+        answer = shuffle_partial(
+            words,
+            ratio=0.5
+        )
+
+        answer += " " + random.choice([
+            "digunakan dalam sistem",
+            "pada komputer",
+            "dalam teknologi"
+        ])
+
+        return answer
+
+    # =====================================
+    # WEAK
+    # =====================================
+
+    elif mode == "weak":
+
+        answer = shuffle_partial(
+            words,
+            ratio=0.3
+        )
+
+        answer = add_typo(
+            answer,
+            typo_rate=0.15
+        )
+
+        return answer
+
+    # =====================================
+    # POOR
+    # =====================================
+
     elif mode == "poor":
-        return random.choice(["kurang paham", "struktur data penting", "digunakan di program", "untuk coding"])
+
+        return random.choice(
+            WEAK_ANSWERS
+        )
+
+    # =====================================
+    # OFFTOPIC
+    # =====================================
+
+    elif mode == "offtopic":
+
+        return random.choice(
+            OFFTOPIC_ANSWERS
+        )
+
+    # =====================================
+    # CONTRADICTORY
+    # =====================================
+
+    elif mode == "contradictory":
+
+        answer = shuffle_partial(
+            words,
+            ratio=0.6
+        )
+
+        answer += " " + random.choice(
+            CONTRADICTION_PHRASES
+        )
+
+        return answer
+
+    # =====================================
+    # COPY
+    # =====================================
+
     else:
+
         return reference
 
 # =====================================
@@ -302,13 +598,15 @@ def generate_dataset_for_course(course_name, num_samples_per_question=5):
 
         for _ in range(num_samples_per_question):
             student_ans = generate_student_answer(ref)
-            nscore = final_scoring(q, ref, student_ans)
+            nscore, sim, rubric = final_scoring(q, ref, student_ans)
             generated_data.append({
                 "course": course_name,
                 "question": q,
                 "reference_answer": ref,
                 "student_answer": student_ans,
-                "instructor_score": nscore  # Placeholder untuk skor LLM nanti
+                "instructor_score": nscore,  # Placeholder untuk skor LLM nanti
+                "semantic_score": sim,
+                "rubric_score": rubric,
             })
 
     return pd.DataFrame(generated_data)
@@ -317,12 +615,14 @@ def generate_dataset_for_course(course_name, num_samples_per_question=5):
 # FEATURE SCORING
 # =====================================
 def similarity_score(reference, essay):
-    vec = TfidfVectorizer()
-    tfidf = vec.fit_transform([reference, essay])
+    embeddings = sbert_model.encode([
+        reference,
+        essay
+    ])
 
     sim = cosine_similarity(
-        tfidf[0:1],
-        tfidf[1:2]
+        [embeddings[0]],
+        [embeddings[1]]
     )[0][0]
 
     return sim * 100
@@ -363,8 +663,16 @@ def rubric_score(question, reference, essay):
     return min(score, 100)
 
 
+# =====================================
+# FINAL AI ESSAY SCORING
+# =====================================
+
 def final_scoring(question, reference, essay):
-    sim = similarity_score(reference, essay)
+
+    sim = similarity_score(
+        reference,
+        essay
+    )
 
     rub = rubric_score(
         question,
@@ -372,29 +680,111 @@ def final_scoring(question, reference, essay):
         essay
     )
 
-    coverage = min(
-        len(
-            set(question.lower().split()) &
-            set(essay.lower().split())
-        ) * 20,
-        100
+    q_words = set(
+        question.lower().split()
     )
 
-    length = min(
-        len(essay.split()) * 4,
-        100
+    e_words = set(
+        essay.lower().split()
+    )
+
+    keyword_cov = (
+        len(q_words & e_words)
+        / max(len(q_words), 1)
+    ) * 100
+
+    word_count = len(
+        essay.split()
+    )
+
+    # =====================================
+    # LENGTH SCORE
+    # =====================================
+
+    if word_count <= 3:
+        length_score = 10
+
+    elif word_count <= 8:
+        length_score = 35
+
+    elif word_count <= 15:
+        length_score = 65
+
+    elif word_count <= 30:
+        length_score = 85
+
+    else:
+        length_score = 100
+
+    # =====================================
+    # DIVERSITY
+    # =====================================
+
+    vocab_diversity = (
+        len(set(e_words))
+        / max(len(e_words), 1)
+    ) * 100
+
+    # =====================================
+    # PENALTY
+    # =====================================
+
+    penalty = 0
+
+    if sim < 20:
+        penalty += 25
+
+    if word_count < 5:
+        penalty += 20
+
+    if essay in OFFTOPIC_ANSWERS:
+        penalty += 40
+
+    if essay in WEAK_ANSWERS:
+        penalty += 35
+
+    # =====================================
+    # BONUS
+    # =====================================
+
+    bonus = 0
+
+    if sim > 85 and keyword_cov > 70:
+        bonus += 10
+
+    if vocab_diversity > 70:
+        bonus += 5
+
+    # =====================================
+    # FINAL SCORE
+    # =====================================
+
+    final = (
+        0.45 * sim +
+        0.20 * rub +
+        0.15 * keyword_cov +
+        0.10 * vocab_diversity +
+        0.10 * length_score
     )
 
     final = (
-        0.4 * sim +
-        0.3 * rub +
-        0.2 * coverage +
-        0.1 * length
+        final +
+        bonus -
+        penalty
     )
 
-    noise = random.uniform(-3, 3)
+    # =====================================
+    # CONTROLLED NOISE
+    # =====================================
 
-    return max(0, min(100, final + noise))
+    noise = random.uniform(-2, 2)
+
+    final += noise
+
+    return round(
+        max(0, min(100, final)),
+        2
+    ), sim * 100, rub
 
 # =====================================
 # IMPLEMENTASI EKSEKUSI + SAVE CSV
@@ -410,7 +800,7 @@ import math
 OUTPUT_DIR = "data"
 
 # Jumlah data per mata kuliah
-JML_DATA = 1000
+JML_DATA = 500
 
 # =====================================
 # CREATE FOLDER
