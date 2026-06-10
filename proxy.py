@@ -1,9 +1,11 @@
+# proxy.py
 from sklearn.ensemble import RandomForestRegressor
+from xgboost import XGBRegressor
 import numpy as np
 
 def proxy_fill(df):
     """
-    Proxy filling menggunakan RandomForest (lebih powerful dari linear)
+    Proxy filling menggunakan XGBRegressor (lebih powerful dari linear)
     """
 
     mask = df["gen_score"].notna()
@@ -16,11 +18,13 @@ def proxy_fill(df):
         X = df.loc[mask, ["sim_feat", "rubric_feat", "length_feat"]]
         y = df.loc[mask, "gen_score"]
 
-        model = RandomForestRegressor(
-            n_estimators=150,
-            max_depth=10,
-            random_state=42,
-            n_jobs=-1
+        model = XGBRegressor(
+            n_estimators=300,
+            max_depth=8,
+            learning_rate=0.05,
+            subsample=0.8,
+            colsample_bytree=0.8,
+            random_state=42
         )
 
         model.fit(X, y)
@@ -32,7 +36,7 @@ def proxy_fill(df):
             df.loc[~mask, ["sim_feat", "rubric_feat", "length_feat"]]
         )
 
-        print("✓ Proxy menggunakan RandomForest")
+        print("✓ Proxy menggunakan XGBRegressor")
         return df, model, "proxy"
 
     print("⚠ Fallback ke final_score")

@@ -9,3 +9,4 @@ def quadratic_weighted_kappa(y_true, y_pred):
     y_pred = np.clip(y_pred, 0, 100)
 
     return cohen_kappa_score(y_true, y_pred, weights="quadratic")
+    

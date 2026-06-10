@@ -1,75 +1,258 @@
-from sklearn.feature_extraction.text import TfidfVectorizer
+# feature_engineering.py
+
+import numpy as np
+import pandas as pd
+
 from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.feature_extraction.text import TfidfVectorizer
 
-def rubric_score_logic(question, reference, essay):
-    essay_words = str(essay).lower().split()
-    ref_words = str(reference).lower().split()
-    q_words = str(question).lower().split()
-
-    overlap_ref = len(set(essay_words) & set(ref_words))
-    overlap_q = len(set(essay_words) & set(q_words))
-
-    length_factor = min(len(essay_words) / 20, 1.0)
-
-    score = (overlap_ref * 8) + (overlap_q * 5) + (length_factor * 20)
-    return min(score, 100)
+from sbert_loader import sbert_model
 
 
-def build_features(df):
+# =============================================================================
+# TEXT CLEANING
+# =============================================================================
+def clean_text(text):
+
+    if pd.isna(text):
+        return ""
+
+    text = str(text)
+
+    text = text.strip().lower()
+
+    return text
+
+
+# =============================================================================
+# BUILD FEATURES
+# =============================================================================
+def build_features(df, artifacts=None):
+
     print("Build Features....")
 
-    # =========================
-    # TF-IDF Similarity
-    # =========================
-    vectorizer = TfidfVectorizer(max_features=5000)
+    df = df.copy()
 
-    all_text = df["reference_answer"].tolist() + df["student_answer"].tolist()
-    tfidf = vectorizer.fit_transform(all_text)
-
-    ref_vec = tfidf[:len(df)]
-    ess_vec = tfidf[len(df):]
-
-    df['sim_feat'] = [
-        cosine_similarity(ref_vec[i], ess_vec[i])[0][0]
-        for i in range(len(df))
+    # =========================================================================
+    # VALIDATION
+    # =========================================================================
+    required_cols = [
+        "student_answer",
+        "reference_answer",
+        "instructor_score"
     ]
 
-    # =========================
-    # Rubric Feature (WAJIB)
-    # =========================
-    df['rubric_feat'] = df.apply(
-        lambda r: rubric_score_logic(
-            r.get('question', ''),
-            r['reference_answer'],
-            r['student_answer']
-        ),
-        axis=1
+    for col in required_cols:
+
+        if col not in df.columns:
+            raise ValueError(f"Kolom '{col}' tidak ditemukan")
+
+    # =========================================================================
+    # CLEAN TEXT
+    # =========================================================================
+    df["student_answer"] = df["student_answer"].fillna("").astype(str)
+    df["reference_answer"] = df["reference_answer"].fillna("").astype(str)
+
+    df["student_answer_clean"] = (
+        df["student_answer"]
+        .apply(clean_text)
     )
 
-    # =========================
-    # Length Feature
-    # =========================
-    df['length_feat'] = df['student_answer'].apply(
-        lambda x: min(len(str(x).split()) / 50, 1.0)
+    df["reference_answer_clean"] = (
+        df["reference_answer"]
+        .apply(clean_text)
     )
 
+    # =========================================================================
+    # TFIDF VECTORIZER
+    # =========================================================================
+    if artifacts is None:
+
+        tfidf_vectorizer = TfidfVectorizer(
+            max_features=5000
+        )
+
+        tfidf_vectorizer.fit(
+            pd.concat([
+                df["student_answer_clean"],
+                df["reference_answer_clean"]
+            ])
+        )
+
+    else:
+
+        tfidf_vectorizer = artifacts["tfidf_vectorizer"]
+
+    # =========================================================================
+    # TFIDF TRANSFORM
+    # =========================================================================
+    student_tfidf = tfidf_vectorizer.transform(
+        df["student_answer_clean"]
+    )
+
+    reference_tfidf = tfidf_vectorizer.transform(
+        df["reference_answer_clean"]
+    )
+
+    # =========================================================================
+    # COSINE SIMILARITY FEATURE
+    # =========================================================================
+    similarities = []
+
+    for i in range(len(df)):
+
+        sim = cosine_similarity(
+            student_tfidf[i],
+            reference_tfidf[i]
+        )[0][0]
+
+        similarities.append(sim)
+
+    df["sim_feat"] = similarities
+
+    # =========================================================================
+    # RUBRIC FEATURE
+    # =========================================================================
+    #df["rubric_feat"] = (
+    #    df["instructor_score"]
+    #    .astype(float)
+    #)
+    # =========================================================================
+    # HEURISTIC RUBRIC FEATURE
+    # =========================================================================
+
+    rubric_scores = []
+
+    for idx, row in df.iterrows():
+
+        student = row["student_answer_clean"]
+        reference = row["reference_answer_clean"]
+
+        student_words = set(student.split())
+        ref_words = set(reference.split())
+
+        # keyword overlap
+        overlap = len(
+            student_words & ref_words
+        )
+
+        # coverage ratio
+        coverage = overlap / max(len(ref_words), 1)
+
+        # scaled rubric score
+        rubric = min(coverage * 100, 100)
+
+        rubric_scores.append(rubric)
+
+    df["rubric_feat"] = rubric_scores
+
+    # =========================================================================
+    # LENGTH FEATURE
+    # =========================================================================
+    df["length_feat"] = (
+        df["student_answer_clean"]
+        .apply(lambda x: len(x.split()))
+    )
+
+    # =========================================================================
+    # SBERT EMBEDDING
+    # =========================================================================
+    student_embeddings = sbert_model.encode(
+        df["student_answer_clean"].tolist(),
+        show_progress_bar=True,
+        convert_to_numpy=True
+    )
+
+    reference_embeddings = sbert_model.encode(
+        df["reference_answer_clean"].tolist(),
+        show_progress_bar=True,
+        convert_to_numpy=True
+    )
+
+    # =========================================================================
+    # SBERT COSINE FEATURE
+    # =========================================================================
+    sbert_similarities = []
+
+    for i in range(len(df)):
+
+        emb1 = student_embeddings[i].reshape(1, -1)
+        emb2 = reference_embeddings[i].reshape(1, -1)
+
+        sim = cosine_similarity(
+            emb1,
+            emb2
+        )[0][0]
+
+        sbert_similarities.append(sim)
+
+    df["sbert_sim_feat"] = sbert_similarities
+
+    # =========================================================================
+    # STORE SBERT EMBEDDINGS
+    # =========================================================================
+    df["sbert_embedding"] = list(student_embeddings)
+
+    # =========================================================================
+    # ARTIFACTS
+    # =========================================================================
     artifacts = {
-        "vectorizer": vectorizer
+
+        "tfidf_vectorizer":
+            tfidf_vectorizer
+
     }
 
     return df, artifacts
 
-def normalize_features(df):
 
-    df['sim_feat'] = df['sim_feat'].astype("float32")
+# =============================================================================
+# NORMALIZATION
+# =============================================================================
+def normalize_features(df, scaler=None):
 
-    df['rubric_feat'] = df['rubric_feat'] / 100.0
-    df['length_feat'] = df['length_feat'].astype("float32")
+    df = df.copy()
 
-    if 'gen_score' in df.columns:
-        df['gen_score'] = df['gen_score'] / 100.0
+    feature_cols = [
 
-    if 'final_score' in df.columns:
-        df['final_score'] = df['final_score'] / 100.0
+        "sim_feat",
+        "rubric_feat",
+        "length_feat",
+        "sbert_sim_feat"
 
-    return df
+    ]
+
+    # =========================================================================
+    # VALIDATION
+    # =========================================================================
+    for col in feature_cols:
+
+        if col not in df.columns:
+            raise ValueError(
+                f"Kolom '{col}' tidak ditemukan"
+            )
+
+    # =========================================================================
+    # TRAIN MODE
+    # =========================================================================
+    if scaler is None:
+
+        scaler = MinMaxScaler()
+
+        df[feature_cols] = scaler.fit_transform(
+            df[feature_cols]
+        )
+
+        return df, scaler
+
+    # =========================================================================
+    # TEST / INFERENCE MODE
+    # =========================================================================
+    else:
+
+        df[feature_cols] = scaler.transform(
+            df[feature_cols]
+        )
+
+        return df
