@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+title: "HybridScoring_V5: AI-Assisted Decision Support System for Indonesian Essay Assessment"
+message: "If you use this software, please cite it using the metadata below."
+type: software
+
+authors:
+  - family-names: "Sri Artha"
+    given-names: "I Made Gede"
+    affiliation: "Institut Bisnis dan Teknologi Indonesia"
+    email: "2503010005@student.instiki.ac.id"
+
+repository-code: "https://github.com/2503010005/hybridscroring_V5"
+
+abstract: >
+  HybridScoring_V5 is an AI-assisted educational decision support system
+  for Indonesian essay assessment using a Context-Aware Hybrid CNN–BiLSTM
+  approach enhanced with semantic feature injection and human-in-the-loop
+  validation mechanisms.
+
+keywords:
+  - automated essay scoring
+  - decision support system
+  - cnn-bilstm
+  - educational ai
+  - deep learning
+  - indonesian essay scoring
+
+license: "MIT"
+
+version: "5.0.0"
+
+date-released: "2026-06-10"
