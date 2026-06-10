@@ -1,0 +1,959 @@
+student_id,soal_no,course,student_answer,github_url_source,x_dl,x_sem,x_rubric,rubric_data,penalty_factor,y_actual
+MHS_01,1,Struktur Data,"Karakteristik Memori dan Akses Data
+
+Array dapat melakukan akses elemen dalam waktu konstan O(1) karena data disimpan pada lokasi memori yang berurutan (kontinu). Setiap elemen memiliki indeks yang dapat langsung dihitung alamat memorinya menggunakan rumus tertentu. Karena alamat memori dapat diketahui secara langsung, sistem tidak perlu menelusuri elemen satu per satu.
+
+Sebaliknya, Singly Linked List menyimpan node pada lokasi memori yang tidak harus berurutan (non-kontinu). Setiap node hanya mengetahui alamat node berikutnya melalui pointer. Untuk mengakses elemen ke-n, proses harus dimulai dari head dan menelusuri node satu per satu hingga mencapai elemen yang dicari.
+
+Akibatnya, kompleksitas akses pada Array adalah O(1), sedangkan pada Singly Linked List adalah O(n).
+
+##",https://github.com/Vin25a/StrukturData-Q1-2501010097-Kadek-Alvin-Kurniawan-Putra-D,74.36,90.92,81.67,"{""landasan_teori_memori"": 85.0, ""analisis_kompleksitas"": 80.0, ""kesimpulan_perbandingan"": 80.0}",0.0,82
+MHS_01,2,Struktur Data,"Analisis Efisiensi Operasi Manipulasi
+
+Linked List lebih unggul dibandingkan Array ketika sering dilakukan operasi penyisipan (insertion) dan penghapusan (deletion) data, terutama pada bagian awal atau tengah struktur data.
+
+Pada Array, penyisipan atau penghapusan mengharuskan elemen-elemen setelah posisi tersebut digeser. Proses ini membutuhkan waktu O(n).
+
+Sedangkan pada Linked List, jika posisi node telah ditemukan, penyisipan atau penghapusan hanya memerlukan perubahan pointer tanpa memindahkan data lain. Operasi tersebut dapat dilakukan dalam waktu O(1).
+
+Oleh karena itu, Linked List lebih efisien untuk aplikasi yang sering melakukan perubahan struktur data secara dinamis.
+
+##",https://github.com/Vin25a/StrukturData-Q1-2501010097-Kadek-Alvin-Kurniawan-Putra-D,83.3,83.17,85.0,"{""kondisi_keunggulan"": 90.0, ""alasan_teoritis_pointer"": 80.0}",0.0,84
+MHS_01,3,Struktur Data,"Konsep Doubly Linked List
+
+Pada Doubly Linked List, setiap node terdiri dari tiga bagian:
+
+Data
+Pointer ke node berikutnya (next)
+Pointer ke node sebelumnya (prev)
+
+Struktur node:
+
+[Prev] ← [Data] → [Next]
+
+Keberadaan pointer tambahan (prev) menyebabkan penggunaan memori menjadi lebih besar dibandingkan Singly Linked List karena setiap node harus menyimpan dua alamat pointer.
+
+Namun, keuntungan utamanya adalah penelusuran dapat dilakukan ke dua arah, yaitu maju dan mundur. Hal ini membuat operasi tertentu seperti traversal balik atau penghapusan node menjadi lebih fleksibel dan efisien.
+
+##",https://github.com/Vin25a/StrukturData-Q1-2501010097-Kadek-Alvin-Kurniawan-Putra-D,68.9,73.43,80.0,"{""anatomi_node"": 85.0, ""dampak_overhead_memori"": 75.0, ""fleksibilitas_traversal"": 80.0}",0.0,74
+MHS_01,4,Struktur Data,"Mekanisme Circular Linked List
+
+Circular Linked List adalah Linked List yang node terakhirnya tidak menunjuk ke NULL, melainkan kembali menunjuk ke node pertama (head).
+
+Linked List biasa:
+
+Head → Node1 → Node2 → Node3 → NULL
+
+Circular Linked List:
+
+Head → Node1 → Node2 → Node3
+↑______________________↓
+
+Perbedaan utama secara teoritis adalah tidak adanya akhir (NULL) pada struktur melingkar ini.
+
+Contoh penggunaan Circular Linked List adalah sistem Round Robin Scheduling pada sistem operasi. Dalam metode ini, setiap proses mendapatkan giliran secara bergantian dan setelah proses terakhir selesai, giliran kembali ke proses pertama secara otomatis.
+
+##",https://github.com/Vin25a/StrukturData-Q1-2501010097-Kadek-Alvin-Kurniawan-Putra-D,66.45,89.06,87.5,"{""perbedaan_teoritis_cincin"": 90.0, ""kesesuaian_use_case"": 85.0}",0.0,80
+MHS_01,5,Struktur Data,"Array Dinamis di Python
+
+Python List diimplementasikan sebagai Dynamic Array. Saat operasi append dilakukan dan kapasitas array masih tersedia, elemen baru cukup ditempatkan pada slot kosong sehingga proses berlangsung dalam O(1).
+
+Namun, ketika kapasitas penuh, Python akan melakukan beberapa langkah:
+
+Membuat array baru dengan kapasitas yang lebih besar.
+Menyalin seluruh elemen dari array lama ke array baru.
+Menambahkan elemen baru pada array yang telah diperbesar.
+Melepaskan memori array lama.
+
+Proses penyalinan ini membutuhkan waktu O(n) karena seluruh elemen harus dipindahkan.
+
+Meskipun demikian, Python melakukan penambahan kapasitas lebih besar dari kebutuhan saat ini (over-allocation), sehingga operasi append secara rata-rata (amortized) tetap memiliki kompleksitas O(1).
+
+## Kesimpulan
+
+Array memiliki keunggulan pada akses data yang sangat cepat karena menggunakan memori kontinu, sedangkan Linked List unggul pada fleksibilitas penyisipan dan penghapusan data karena menggunakan pointer. Doubly Linked List menambah fleksibilitas traversal dengan biaya memori yang lebih besar. Circular Linked List cocok untuk proses yang bersifat berulang. Sementara itu, Python List menggunakan Dynamic Array yang memungkinkan ukuran struktur data bertambah secara otomatis sesuai kebutuhan.",https://github.com/Vin25a/StrukturData-Q1-2501010097-Kadek-Alvin-Kurniawan-Putra-D,80.03,85.58,78.33,"{""over_allocation"": 80.0, ""proses_penyalinan"": 80.0, ""manajemen_memori_lama"": 75.0}",0.0,81
+MHS_02,1,Struktur Data,"Karakteristik Memori dan Akses Data
+
+Array mampu mengakses elemen dengan kompleksitas waktu O(1) karena seluruh data disimpan secara berurutan (kontinu) di memori. Setiap elemen memiliki indeks yang dapat langsung dihitung dari alamat dasar array ditambah offset indeks tersebut. Dengan cara ini, komputer bisa langsung menemukan lokasi data tanpa harus melewati elemen lainnya.
+
+Berbeda dengan Array, pada Singly Linked List data disimpan secara tidak berurutan (non-kontinu). Masing-masing node menyimpan data dan pointer yang mengarah ke node berikutnya. Untuk menemukan elemen tertentu, sistem harus melakukan traversal dari node pertama hingga node yang dituju secara satu per satu. Karena pencarian dilakukan berurutan, waktu aksesnya menjadi O(n).
+
+---
+
+##",https://github.com/egasanjaya13/StrukturData-Q1-2501010099-IGedeEgaSanjayaPutra-D.git,65.51,91.34,81.67,"{""landasan_teori_memori"": 85.0, ""analisis_kompleksitas"": 80.0, ""kesimpulan_perbandingan"": 80.0}",0.0,78
+MHS_02,2,Struktur Data,"Analisis Efisiensi Operasi Manipulasi
+
+Dalam operasi insertion dan deletion, Linked List memiliki keunggulan dibandingkan Array, terutama jika perubahan data sering terjadi di bagian awal maupun tengah struktur.
+
+Pada Array, proses insertion atau deletion mengharuskan elemen lain digeser agar urutan indeks tetap teratur. Proses pergeseran tersebut membutuhkan kompleksitas waktu O(n).
+
+Sementara itu, pada Linked List, insertion dan deletion hanya memerlukan perubahan hubungan pointer antar node tanpa memindahkan data lainnya. Jika posisi node yang akan dimanipulasi sudah diketahui, operasi dapat dilakukan dalam waktu O(1).
+
+Oleh sebab itu, Linked List lebih sesuai digunakan untuk data yang ukurannya sering berubah secara dinamis.
+
+---
+
+##",https://github.com/egasanjaya13/StrukturData-Q1-2501010099-IGedeEgaSanjayaPutra-D.git,85.81,74.67,85.0,"{""kondisi_keunggulan"": 90.0, ""alasan_teoritis_pointer"": 80.0}",0.0,82
+MHS_02,3,Struktur Data,"Konsep Doubly Linked List
+
+Doubly Linked List terdiri dari node yang memiliki tiga komponen utama, yaitu:
+
+* Data
+* Pointer ke node berikutnya (next)
+* Pointer ke node sebelumnya (prev)
+
+Struktur ini berbeda dari Singly Linked List yang hanya memiliki pointer next.
+
+Karena terdapat tambahan pointer prev, penggunaan memori pada Doubly Linked List menjadi lebih besar. Namun, kelebihannya adalah traversal data dapat dilakukan dalam dua arah, baik maju maupun mundur.
+
+Selain itu, proses penghapusan node juga menjadi lebih mudah karena sistem tidak perlu mencari node sebelumnya terlebih dahulu.
+
+---
+
+##",https://github.com/egasanjaya13/StrukturData-Q1-2501010099-IGedeEgaSanjayaPutra-D.git,69.55,74.03,80.0,"{""anatomi_node"": 85.0, ""dampak_overhead_memori"": 75.0, ""fleksibilitas_traversal"": 80.0}",0.0,74
+MHS_02,4,Struktur Data,"Mekanisme Circular Linked List
+
+Circular Linked List memiliki bentuk struktur melingkar, di mana node terakhir tidak menunjuk ke NULL, tetapi kembali mengarah ke node pertama.
+
+Hal ini berbeda dengan Linked List biasa yang menjadikan NULL sebagai penanda akhir node.
+
+Dengan struktur melingkar tersebut, traversal dapat berlangsung terus-menerus tanpa perlu kembali ke awal secara manual.
+
+Salah satu penerapan Circular Linked List yang umum adalah pada sistem Round Robin Scheduling dalam sistem operasi. Pada metode ini, setiap proses dijalankan secara bergantian dan berulang dalam siklus tertentu sehingga struktur melingkar menjadi lebih efektif digunakan.
+
+---
+
+##",https://github.com/egasanjaya13/StrukturData-Q1-2501010099-IGedeEgaSanjayaPutra-D.git,72.61,81.54,87.5,"{""perbedaan_teoritis_cincin"": 90.0, ""kesesuaian_use_case"": 85.0}",0.0,80
+MHS_02,5,Struktur Data,"Array Dinamis di Python
+
+Python list menerapkan konsep Dynamic Array. Ketika operasi append dilakukan dan kapasitas array sudah penuh, Python akan membuat ruang memori baru dengan ukuran yang lebih besar.
+
+Kemudian, seluruh elemen dari array lama akan disalin ke lokasi memori yang baru. Setelah proses penyalinan selesai, memori lama akan dilepas dan sistem akan menggunakan array baru tersebut.
+
+Mekanisme ini membuat Python list dapat bertambah ukuran secara otomatis tanpa perlu menentukan kapasitas awal secara manual.
+
+Meskipun proses resize memiliki kompleksitas O(n) karena harus menyalin seluruh data, operasi append secara keseluruhan tetap efisien dan dianggap memiliki kompleksitas amortized O(1).",https://github.com/egasanjaya13/StrukturData-Q1-2501010099-IGedeEgaSanjayaPutra-D.git,75.8,76.41,78.33,"{""over_allocation"": 80.0, ""proses_penyalinan"": 80.0, ""manajemen_memori_lama"": 75.0}",0.0,77
+MHS_03,1,Struktur Data,Python list menyimpan elemen dalam memori kontigu dengan kapasitas tertentu (`allocated size`) lebih besar dari panjang aktual (`size`).,https://github.com/Ptmahayana/Quis_1_StrukturData_PutuMahayanaWiguna_2501010103.git,80.3,73.07,81.67,"{""landasan_teori_memori"": 85.0, ""analisis_kompleksitas"": 80.0, ""kesimpulan_perbandingan"": 80.0}",0.0,79
+MHS_03,2,Struktur Data,"Saat `append` dan `size == capacity`, Python akan:
+   - Mengalokasikan blok memori baru dengan kapasitas lebih besar (biasanya **1.125 × capacity** untuk list besar, atau ukuran tetap untuk list kecil).
+   - Menyalin semua elemen lama ke memori baru (O(n)).
+   - Membebaskan memori lama.
+   - Menambahkan elemen baru di akhir.",https://github.com/Ptmahayana/Quis_1_StrukturData_PutuMahayanaWiguna_2501010103.git,72.3,78.06,85.0,"{""kondisi_keunggulan"": 90.0, ""alasan_teoritis_pointer"": 80.0}",0.0,78
+MHS_03,3,Struktur Data,"Teknik ini disebut **amortized O(1)** untuk `append`, karena meskipun sesekali mahal (O(n)), rata-rata per operasi tetap konstan.
+
+---",https://github.com/Ptmahayana/Quis_1_StrukturData_PutuMahayanaWiguna_2501010103.git,76.4,87.27,80.0,"{""anatomi_node"": 85.0, ""dampak_overhead_memori"": 75.0, ""fleksibilitas_traversal"": 80.0}",0.0,81
+MHS_03,4,Struktur Data,"Mekanisme Circular Linked List
+
+**Perbedaan teoritis dengan linked list biasa:**
+
+- Linked list biasa: node terakhir menunjuk ke `null` (atau `None`).
+- Circular linked list: node terakhir menunjuk kembali ke node **pertama** (head), membentuk lingkaran.
+
+**Contoh use case yang lebih efektif:**
+
+- **Round-robin scheduling** pada sistem operasi atau game turn-based.
+  - Proses/player dijalankan bergantian secara melingkar tanpa batas.
+  - Circular linked list memudahkan perputaran tanpa perlu mereset pointer ke awal secara eksplisit.
+
+---
+
+##",https://github.com/Ptmahayana/Quis_1_StrukturData_PutuMahayanaWiguna_2501010103.git,69.99,81.31,87.5,"{""perbedaan_teoritis_cincin"": 90.0, ""kesesuaian_use_case"": 85.0}",0.0,79
+MHS_03,5,Struktur Data,"Array Dinamis di Python
+
+**Mekanisme di balik layar saat Dynamic Array (Python list) kehabisan kapasitas pada operasi `append`:**
+
+1. Python list menyimpan elemen dalam memori kontigu dengan kapasitas tertentu (`allocated size`) lebih besar dari panjang aktual (`size`).
+2. Saat `append` dan `size == capacity`, Python akan:
+   - Mengalokasikan blok memori baru dengan kapasitas lebih besar (biasanya **1.125 × capacity** untuk list besar, atau ukuran tetap untuk list kecil).
+   - Menyalin semua elemen lama ke memori baru (O(n)).
+   - Membebaskan memori lama.
+   - Menambahkan elemen baru di akhir.
+3. Teknik ini disebut **amortized O(1)** untuk `append`, karena meskipun sesekali mahal (O(n)), rata-rata per operasi tetap konstan.
+
+---",https://github.com/Ptmahayana/Quis_1_StrukturData_PutuMahayanaWiguna_2501010103.git,79.81,71.02,78.33,"{""over_allocation"": 80.0, ""proses_penyalinan"": 80.0, ""manajemen_memori_lama"": 75.0}",0.0,77
+MHS_04,1,Struktur Data,"Karakteristik Memori dan Proses Akses Data
+
+Array mampu mengakses elemen dengan kompleksitas waktu `O(1)` karena data disimpan secara berurutan (kontinu) di dalam memori. Setiap elemen memiliki indeks yang dapat dihitung langsung dari alamat dasar array ditambah offset indeks tertentu. Dengan mekanisme tersebut, sistem dapat langsung menemukan lokasi data tanpa perlu memeriksa elemen lainnya.
+
+Berbeda dengan Array, pada Singly Linked List data tidak disimpan secara berdekatan di memori. Setiap node terdiri dari data dan pointer yang menunjuk ke node selanjutnya. Untuk menemukan elemen tertentu, proses harus dilakukan dengan menelusuri node satu per satu mulai dari node pertama hingga posisi yang dicari. Oleh sebab itu, waktu akses pada Linked List menjadi `O(n)`.
+
+---
+
+#",https://github.com/dwimaniks/StrukturData-Q1-2501010107-IKadekDwiManikSuteja-D.git,80.19,73.75,81.67,"{""landasan_teori_memori"": 85.0, ""analisis_kompleksitas"": 80.0, ""kesimpulan_perbandingan"": 80.0}",0.0,79
+MHS_04,2,Struktur Data,"Analisis Efisiensi Operasi Manipulasi Data
+
+Linked List lebih efektif dibandingkan Array ketika sering dilakukan operasi penyisipan (*insertion*) dan penghapusan (*deletion*), khususnya pada bagian awal maupun tengah struktur data.
+
+Pada Array, insertion dan deletion mengharuskan elemen lain digeser agar susunan indeks tetap teratur. Proses pergeseran tersebut membutuhkan kompleksitas waktu `O(n)`.
+
+Sementara itu, pada Linked List, insertion dan deletion cukup dilakukan dengan mengubah hubungan pointer antar node tanpa memindahkan data lainnya. Jika posisi node telah diketahui sebelumnya, operasi tersebut dapat dilakukan dalam waktu `O(1)`.
+
+Karena alasan tersebut, Linked List lebih sesuai digunakan untuk data yang ukurannya sering berubah secara dinamis.
+
+---
+
+#",https://github.com/dwimaniks/StrukturData-Q1-2501010107-IKadekDwiManikSuteja-D.git,66.63,90.88,85.0,"{""kondisi_keunggulan"": 90.0, ""alasan_teoritis_pointer"": 80.0}",0.0,79
+MHS_04,3,Struktur Data,"Konsep Doubly Linked List
+
+Pada Doubly Linked List, setiap node memiliki tiga komponen utama, yaitu:
+
+- Data
+- Pointer menuju node berikutnya (*next*)
+- Pointer menuju node sebelumnya (*prev*)
+
+Struktur ini berbeda dengan Singly Linked List yang hanya memiliki satu pointer *next*.
+
+Adanya pointer tambahan menyebabkan penggunaan memori menjadi lebih besar karena setiap node menyimpan dua alamat pointer. Namun, kelebihannya adalah proses traversal dapat dilakukan ke dua arah, yaitu maju maupun mundur.
+
+Selain itu, Doubly Linked List juga mempermudah proses penghapusan node karena sistem tidak perlu mencari node sebelumnya terlebih dahulu.
+
+---
+
+#",https://github.com/dwimaniks/StrukturData-Q1-2501010107-IKadekDwiManikSuteja-D.git,89.14,87.78,80.0,"{""anatomi_node"": 85.0, ""dampak_overhead_memori"": 75.0, ""fleksibilitas_traversal"": 80.0}",0.0,86
+MHS_04,4,Struktur Data,"Mekanisme Circular Linked List
+
+Circular Linked List merupakan struktur linked list yang berbentuk melingkar, di mana node terakhir tidak menunjuk ke `NULL`, tetapi kembali menunjuk ke node pertama.
+
+Hal ini berbeda dengan Linked List biasa yang menggunakan `NULL` sebagai penanda akhir data.
+
+Karena sifatnya yang melingkar, proses traversal dapat dilakukan terus-menerus tanpa harus kembali ke awal secara manual.
+
+Salah satu penerapan Circular Linked List adalah pada metode *Round Robin Scheduling* dalam sistem operasi. Pada metode tersebut, setiap proses CPU dijalankan secara bergiliran dan berulang secara siklus sehingga struktur melingkar menjadi lebih efisien digunakan.
+
+---
+
+#",https://github.com/dwimaniks/StrukturData-Q1-2501010107-IKadekDwiManikSuteja-D.git,72.62,72.15,87.5,"{""perbedaan_teoritis_cincin"": 90.0, ""kesesuaian_use_case"": 85.0}",0.0,77
+MHS_04,5,Struktur Data,"Array Dinamis pada Python
+
+`Python list` menerapkan konsep *Dynamic Array*. Ketika operasi `append` dilakukan dan kapasitas array sudah penuh, Python akan membuat blok memori baru dengan ukuran yang lebih besar.
+
+Selanjutnya, seluruh elemen dari array lama akan disalin ke lokasi memori yang baru. Setelah proses penyalinan selesai, memori lama akan dilepaskan dan sistem mulai menggunakan array baru tersebut.
+
+Mekanisme ini memungkinkan ukuran `Python list` bertambah secara otomatis tanpa pengguna harus menentukan kapasitas awal secara manual.
+
+Walaupun proses *resize* membutuhkan waktu `O(n)` karena adanya penyalinan data, operasi `append` secara keseluruhan tetap dianggap efisien dengan kompleksitas *amortized* `O(1)`.",https://github.com/dwimaniks/StrukturData-Q1-2501010107-IKadekDwiManikSuteja-D.git,82.11,79.68,78.33,"{""over_allocation"": 80.0, ""proses_penyalinan"": 80.0, ""manajemen_memori_lama"": 75.0}",0.0,80
+MHS_05,1,Struktur Data,Python membuat array baru dengan ukuran lebih besar.,https://github.com/DewaPramana2/StrukturData-Q1-2501010109-DewaGedeBagusPutraPramana-D.git,68.05,80.89,81.67,"{""landasan_teori_memori"": 85.0, ""analisis_kompleksitas"": 80.0, ""kesimpulan_perbandingan"": 80.0}",0.0,76
+MHS_05,2,Struktur Data,Semua data lama disalin ke array baru.,https://github.com/DewaPramana2/StrukturData-Q1-2501010109-DewaGedeBagusPutraPramana-D.git,65.86,90.01,85.0,"{""kondisi_keunggulan"": 90.0, ""alasan_teoritis_pointer"": 80.0}",0.0,79
+MHS_05,3,Struktur Data,Data baru ditambahkan.,https://github.com/DewaPramana2/StrukturData-Q1-2501010109-DewaGedeBagusPutraPramana-D.git,71.47,84.58,80.0,"{""anatomi_node"": 85.0, ""dampak_overhead_memori"": 75.0, ""fleksibilitas_traversal"": 80.0}",0.0,78
+MHS_05,4,Struktur Data,"Array lama dihapus dari memori.
+
+Karena ada proses penyalinan data, operasi resize membutuhkan waktu O(n).
+
+Walaupun begitu, secara rata-rata operasi append() tetap dianggap O(1) karena proses resize tidak selalu terjadi setiap penambahan data.
+
+Kelebihan Dynamic Array:
+
+* ukuran lebih fleksibel,
+* tetap memiliki akses indeks yang cepat,
+* dan efisien digunakan untuk penambahan data di akhir list.",https://github.com/DewaPramana2/StrukturData-Q1-2501010109-DewaGedeBagusPutraPramana-D.git,72.79,81.44,87.5,"{""perbedaan_teoritis_cincin"": 90.0, ""kesesuaian_use_case"": 85.0}",0.0,80
+MHS_05,5,Struktur Data,"Array Dinamis di Python
+
+List pada Python sebenarnya menggunakan konsep Dynamic Array.
+
+Saat melakukan append(), jika kapasitas array masih tersedia maka data langsung ditambahkan dan proses berjalan cepat dengan kompleksitas O(1).
+
+Namun jika kapasitas penuh:
+
+1. Python membuat array baru dengan ukuran lebih besar.
+2. Semua data lama disalin ke array baru.
+3. Data baru ditambahkan.
+4. Array lama dihapus dari memori.
+
+Karena ada proses penyalinan data, operasi resize membutuhkan waktu O(n).
+
+Walaupun begitu, secara rata-rata operasi append() tetap dianggap O(1) karena proses resize tidak selalu terjadi setiap penambahan data.
+
+Kelebihan Dynamic Array:
+
+* ukuran lebih fleksibel,
+* tetap memiliki akses indeks yang cepat,
+* dan efisien digunakan untuk penambahan data di akhir list.",https://github.com/DewaPramana2/StrukturData-Q1-2501010109-DewaGedeBagusPutraPramana-D.git,78.67,74.07,78.33,"{""over_allocation"": 80.0, ""proses_penyalinan"": 80.0, ""manajemen_memori_lama"": 75.0}",0.0,77
+MHS_06,1,Struktur Data,Membuat array baru dengan kapasitas lebih besar.,https://github.com/kayana404/StrukturData-Q1-2501010112-I-KETUT-KAYANA-PRADHITYA-D/blob/bd0355612c657d8221584ca20edc937389688cf3/README.md,89.24,87.05,81.67,"{""landasan_teori_memori"": 85.0, ""analisis_kompleksitas"": 80.0, ""kesimpulan_perbandingan"": 80.0}",0.0,86
+MHS_06,2,Struktur Data,Menyalin seluruh elemen lama ke array baru.,https://github.com/kayana404/StrukturData-Q1-2501010112-I-KETUT-KAYANA-PRADHITYA-D/blob/bd0355612c657d8221584ca20edc937389688cf3/README.md,88.49,89.69,85.0,"{""kondisi_keunggulan"": 90.0, ""alasan_teoritis_pointer"": 80.0}",0.0,88
+MHS_06,3,Struktur Data,Menambahkan elemen baru ke array tersebut.,https://github.com/kayana404/StrukturData-Q1-2501010112-I-KETUT-KAYANA-PRADHITYA-D/blob/bd0355612c657d8221584ca20edc937389688cf3/README.md,79.95,90.28,80.0,"{""anatomi_node"": 85.0, ""dampak_overhead_memori"": 75.0, ""fleksibilitas_traversal"": 80.0}",0.0,83
+MHS_06,4,Struktur Data,"Menghapus referensi array lama.
+
+Proses ini disebut resizing atau reallocation.
+
+Karena penyalinan data membutuhkan traversal seluruh elemen, operasi tersebut memerlukan waktu O(n). Namun resizing tidak terjadi setiap append. Sebagian besar append tetap berjalan dalam O(1) secara rata-rata atau amortized O(1).
+
+Keuntungan Dynamic Array:
+
+* Ukuran fleksibel.
+* Append cepat pada kondisi normal.
+* Penggunaan memori lebih efisien dibanding menambah satu slot setiap kali penuh.
+
+Kekurangannya:
+
+* Resize membutuhkan waktu lebih lama karena harus menyalin data.
+* Kadang menggunakan memori lebih banyak untuk cadangan kapasitas.",https://github.com/kayana404/StrukturData-Q1-2501010112-I-KETUT-KAYANA-PRADHITYA-D/blob/bd0355612c657d8221584ca20edc937389688cf3/README.md,67.21,74.31,87.5,"{""perbedaan_teoritis_cincin"": 90.0, ""kesesuaian_use_case"": 85.0}",0.0,75
+MHS_06,5,Struktur Data,"Array Dinamis di Python
+
+Python list diimplementasikan sebagai Dynamic Array. Saat operasi append dilakukan dan kapasitas array masih tersedia, elemen baru cukup ditempatkan di posisi berikutnya sehingga proses berjalan sangat cepat.
+
+Namun ketika kapasitas penuh, Python melakukan beberapa langkah “di balik layar”:
+
+1. Membuat array baru dengan kapasitas lebih besar.
+2. Menyalin seluruh elemen lama ke array baru.
+3. Menambahkan elemen baru ke array tersebut.
+4. Menghapus referensi array lama.
+
+Proses ini disebut resizing atau reallocation.
+
+Karena penyalinan data membutuhkan traversal seluruh elemen, operasi tersebut memerlukan waktu O(n). Namun resizing tidak terjadi setiap append. Sebagian besar append tetap berjalan dalam O(1) secara rata-rata atau amortized O(1).
+
+Keuntungan Dynamic Array:
+
+* Ukuran fleksibel.
+* Append cepat pada kondisi normal.
+* Penggunaan memori lebih efisien dibanding menambah satu slot setiap kali penuh.
+
+Kekurangannya:
+
+* Resize membutuhkan waktu lebih lama karena harus menyalin data.
+* Kadang menggunakan memori lebih banyak untuk cadangan kapasitas.",https://github.com/kayana404/StrukturData-Q1-2501010112-I-KETUT-KAYANA-PRADHITYA-D/blob/bd0355612c657d8221584ca20edc937389688cf3/README.md,66.13,77.16,78.33,"{""over_allocation"": 80.0, ""proses_penyalinan"": 80.0, ""manajemen_memori_lama"": 75.0}",0.0,73
+MHS_07,1,Struktur Data,Membuat array baru dengan kapasitas lebih besar,https://github.com/dirga11-gtg/StrukturData-Q1-201010116-INyomanDirgaWiryadinata-D.git,74.72,75.97,81.67,"{""landasan_teori_memori"": 85.0, ""analisis_kompleksitas"": 80.0, ""kesimpulan_perbandingan"": 80.0}",0.0,77
+MHS_07,2,Struktur Data,Menyalin seluruh elemen lama ke array baru,https://github.com/dirga11-gtg/StrukturData-Q1-201010116-INyomanDirgaWiryadinata-D.git,85.72,77.85,85.0,"{""kondisi_keunggulan"": 90.0, ""alasan_teoritis_pointer"": 80.0}",0.0,83
+MHS_07,3,Struktur Data,Menambahkan elemen baru,https://github.com/dirga11-gtg/StrukturData-Q1-201010116-INyomanDirgaWiryadinata-D.git,72.02,81.94,80.0,"{""anatomi_node"": 85.0, ""dampak_overhead_memori"": 75.0, ""fleksibilitas_traversal"": 80.0}",0.0,77
+MHS_07,4,Struktur Data,"Menghapus array lama dari memori
+
+Karena proses penyalinan membutuhkan traversal seluruh elemen, maka sesekali operasi append dapat memerlukan:
+
+[
+O(n)
+]
+
+Namun secara rata-rata (**amortized complexity**), operasi `append` tetap dianggap:
+
+[
+O(1)
+]
+
+karena resize tidak terjadi setiap saat.
+
+### Kelebihan Dynamic Array
+
+* ukuran fleksibel
+* akses indeks tetap cepat O(1)
+* lebih praktis digunakan
+
+### Kekurangan
+
+* resize membutuhkan memori tambahan sementara
+* proses copy data dapat memperlambat performa sesaat
+
+---
+
+# Kesimpulan
+
+* **Array** unggul pada akses data cepat karena memori kontinu.
+* **Linked List** unggul pada manipulasi data karena fleksibel dan tidak perlu menggeser elemen.
+* **Doubly Linked List** memberikan traversal dua arah dengan biaya memori lebih besar.
+* **Circular Linked List** cocok untuk proses yang berjalan berulang/melingkar.
+* **Dynamic Array** pada Python memungkinkan ukuran fleksibel dengan mekanisme resize otomatis.",https://github.com/dirga11-gtg/StrukturData-Q1-201010116-INyomanDirgaWiryadinata-D.git,68.52,87.65,87.5,"{""perbedaan_teoritis_cincin"": 90.0, ""kesesuaian_use_case"": 85.0}",0.0,80
+MHS_07,5,Struktur Data,"Array Dinamis di Python
+
+`Python list` diimplementasikan sebagai **Dynamic Array**.
+
+Saat operasi `append` dilakukan dan kapasitas array masih tersedia, elemen baru cukup ditempatkan di posisi berikutnya sehingga prosesnya sangat cepat.
+
+Namun ketika kapasitas penuh, Python melakukan beberapa langkah “di balik layar”:
+
+### Mekanisme yang Terjadi
+
+1. Membuat array baru dengan kapasitas lebih besar
+2. Menyalin seluruh elemen lama ke array baru
+3. Menambahkan elemen baru
+4. Menghapus array lama dari memori
+
+Karena proses penyalinan membutuhkan traversal seluruh elemen, maka sesekali operasi append dapat memerlukan:
+
+[
+O(n)
+]
+
+Namun secara rata-rata (**amortized complexity**), operasi `append` tetap dianggap:
+
+[
+O(1)
+]
+
+karena resize tidak terjadi setiap saat.
+
+### Kelebihan Dynamic Array
+
+* ukuran fleksibel
+* akses indeks tetap cepat O(1)
+* lebih praktis digunakan
+
+### Kekurangan
+
+* resize membutuhkan memori tambahan sementara
+* proses copy data dapat memperlambat performa sesaat
+
+---
+
+# Kesimpulan
+
+* **Array** unggul pada akses data cepat karena memori kontinu.
+* **Linked List** unggul pada manipulasi data karena fleksibel dan tidak perlu menggeser elemen.
+* **Doubly Linked List** memberikan traversal dua arah dengan biaya memori lebih besar.
+* **Circular Linked List** cocok untuk proses yang berjalan berulang/melingkar.
+* **Dynamic Array** pada Python memungkinkan ukuran fleksibel dengan mekanisme resize otomatis.",https://github.com/dirga11-gtg/StrukturData-Q1-201010116-INyomanDirgaWiryadinata-D.git,66.86,91.71,78.33,"{""over_allocation"": 80.0, ""proses_penyalinan"": 80.0, ""manajemen_memori_lama"": 75.0}",0.0,78
+MHS_08,1,Struktur Data,"Array vs Singly Linked List (Akses Data)
+
+Array dapat diakses dalam waktu **O(1)** karena elemen disimpan di **memori kontinu**, sehingga alamat elemen bisa dihitung langsung menggunakan rumus offset dari base address.
+
+Singly Linked List membutuhkan waktu **O(n)** karena data disimpan di **memori non-kontinu**, sehingga harus melakukan traversal dari head sampai node yang dituju melalui pointer `next`.
+
+---
+
+##",https://github.com/ChokiaIsPuja/StrukturData-Q1-2501010120-Puja-D,84.31,74.37,81.67,"{""landasan_teori_memori"": 85.0, ""analisis_kompleksitas"": 80.0, ""kesimpulan_perbandingan"": 80.0}",0.0,81
+MHS_08,2,Struktur Data,"Kapan Linked List Lebih Efisien
+
+Linked List lebih unggul pada operasi **insert dan delete di awal atau tengah data**.
+
+- Array: perlu shifting elemen → O(n)
+- Linked List: cukup ubah pointer → O(1) (jika node sudah diketahui)
+
+Namun, pencarian posisi tetap O(n), sehingga keunggulan utama ada pada manipulasi node, bukan akses data.
+
+---
+
+##",https://github.com/ChokiaIsPuja/StrukturData-Q1-2501010120-Puja-D,65.14,87.94,85.0,"{""kondisi_keunggulan"": 90.0, ""alasan_teoritis_pointer"": 80.0}",0.0,78
+MHS_08,3,Struktur Data,"Doubly Linked List
+
+Struktur node terdiri dari:
+- data
+- pointer `next`
+- pointer `prev`
+
+Kelebihan:
+- Bisa traversal dua arah
+- Delete node lebih mudah
+
+Kekurangan:
+- Lebih boros memori karena ada tambahan pointer `prev`
+
+---
+
+##",https://github.com/ChokiaIsPuja/StrukturData-Q1-2501010120-Puja-D,82.67,86.04,80.0,"{""anatomi_node"": 85.0, ""dampak_overhead_memori"": 75.0, ""fleksibilitas_traversal"": 80.0}",0.0,83
+MHS_08,4,Struktur Data,"Circular Linked List
+
+Circular Linked List adalah linked list di mana node terakhir menunjuk kembali ke head, bukan NULL.
+
+Contoh penggunaan:
+- Round-robin scheduling pada sistem operasi
+- Sistem antrian berputar (game turn-based)
+
+Keunggulan: iterasi bisa berlanjut tanpa reset dari awal.
+
+---
+
+##",https://github.com/ChokiaIsPuja/StrukturData-Q1-2501010120-Puja-D,84.28,71.63,87.5,"{""perbedaan_teoritis_cincin"": 90.0, ""kesesuaian_use_case"": 85.0}",0.0,81
+MHS_08,5,Struktur Data,"Dynamic Array (Python List)
+
+Saat `append()` dilakukan:
+
+- Jika kapasitas masih cukup → operasi O(1)
+- Jika penuh:
+  1. Membuat array baru dengan ukuran lebih besar
+  2. Menyalin semua elemen lama (O(n))
+  3. Menambahkan elemen baru
+
+Meskipun ada resize O(n), secara rata-rata tetap **amortized O(1)**.",https://github.com/ChokiaIsPuja/StrukturData-Q1-2501010120-Puja-D,73.96,72.55,78.33,"{""over_allocation"": 80.0, ""proses_penyalinan"": 80.0, ""manajemen_memori_lama"": 75.0}",0.0,75
+MHS_09,1,Struktur Data,Memeriksa apakah kapasitas memori masih tersedia.,https://github.com/ReihanWaiswana/StrukturData-Q1-2501010122-DewaGedeReihanWaiswana-D.git,86.58,83.71,81.67,"{""landasan_teori_memori"": 85.0, ""analisis_kompleksitas"": 80.0, ""kesimpulan_perbandingan"": 80.0}",0.0,84
+MHS_09,2,Struktur Data,"Jika masih ada ruang:
+
+   * Data langsung ditambahkan.
+   * Operasi berlangsung sangat cepat.",https://github.com/ReihanWaiswana/StrukturData-Q1-2501010122-DewaGedeReihanWaiswana-D.git,73.27,71.4,85.0,"{""kondisi_keunggulan"": 90.0, ""alasan_teoritis_pointer"": 80.0}",0.0,76
+MHS_09,3,Struktur Data,"Jika kapasitas penuh:
+
+   * Python membuat blok memori baru dengan ukuran lebih besar.
+   * Seluruh elemen lama disalin ke memori baru.
+   * Data baru ditambahkan.
+   * Memori lama dilepaskan.
+
+Contoh proses:
+
+```text
+Kapasitas awal: 4
+[1,2,3,4]
+
+Append 5:
+- Buat array baru kapasitas lebih besar
+- Copy seluruh data lama
+- Tambahkan 5
+```
+
+Proses resize ini membutuhkan waktu O(n) karena seluruh elemen harus disalin ulang.
+
+Namun, resize tidak terjadi setiap append. Python biasanya menambah kapasitas lebih besar dari kebutuhan saat ini agar resize tidak terlalu sering dilakukan.
+
+Karena itu:
+
+* Sebagian besar append berlangsung dalam O(1)
+* Resize sesekali berlangsung O(n)
+
+Secara keseluruhan, append pada Dynamic Array dianggap memiliki kompleksitas amortized O(1).
+
+Keuntungan Dynamic Array:
+
+* Ukuran fleksibel
+* Mudah digunakan
+* Akses data tetap cepat seperti array biasa
+
+Kekurangannya:
+
+* Resize membutuhkan penyalinan data
+* Kadang menggunakan memori lebih besar dari jumlah data sebenarnya karena adanya kapasitas cadangan (overallocation)",https://github.com/ReihanWaiswana/StrukturData-Q1-2501010122-DewaGedeReihanWaiswana-D.git,72.77,77.15,80.0,"{""anatomi_node"": 85.0, ""dampak_overhead_memori"": 75.0, ""fleksibilitas_traversal"": 80.0}",0.0,76
+MHS_09,4,Struktur Data,"Mekanisme Circular Linked List
+
+Circular Linked List adalah Linked List yang node terakhirnya tidak menunjuk ke NULL, melainkan kembali menunjuk ke node pertama sehingga membentuk lingkaran.
+
+Ilustrasi:
+
+```text
+A -> B -> C
+^         |
+|_________|
+```
+
+Perbedaan utama dengan Linked List biasa:
+
+| Linked List Biasa           | Circular Linked List                |
+| --------------------------- | ----------------------------------- |
+| Node terakhir menunjuk NULL | Node terakhir menunjuk node pertama |
+| Traversal berhenti di akhir | Traversal dapat terus berulang      |
+| Tidak membentuk siklus      | Membentuk siklus melingkar          |
+
+Karena strukturnya melingkar, Circular Linked List sangat efektif digunakan pada sistem yang membutuhkan proses berulang tanpa henti.
+
+Keuntungan Circular Linked List:
+
+1. Tidak perlu kembali ke awal secara manual.
+2. Sangat efisien untuk proses looping.
+3. Cocok untuk sistem penjadwalan.
+
+Salah satu contoh penggunaan paling umum adalah:
+
+## Round Robin Scheduling
+
+Pada sistem operasi, CPU memberikan waktu proses secara bergantian kepada setiap program.
+
+Contoh:
+
+```text
+P1 -> P2 -> P3 -> kembali ke P1
+```
+
+Setelah proses terakhir selesai, sistem langsung kembali ke proses pertama tanpa harus membuat traversal ulang dari awal.
+
+Contoh penggunaan lain:
+
+* Playlist musik otomatis
+* Sistem multiplayer turn-based
+* Rotasi antrian printer
+* Game berbasis giliran
+
+Secara teori, Circular Linked List meningkatkan efisiensi traversal siklus karena hubungan antar node membentuk loop kontinu.
+
+---
+
+#",https://github.com/ReihanWaiswana/StrukturData-Q1-2501010122-DewaGedeReihanWaiswana-D.git,83.24,84.03,87.5,"{""perbedaan_teoritis_cincin"": 90.0, ""kesesuaian_use_case"": 85.0}",0.0,85
+MHS_09,5,Struktur Data,"Array Dinamis di Python
+
+Python list sebenarnya diimplementasikan menggunakan Dynamic Array.
+
+Berbeda dengan array statis pada bahasa pemrograman tertentu yang ukurannya tetap, Dynamic Array dapat bertambah kapasitas secara otomatis saat data baru ditambahkan.
+
+Ketika operasi append dilakukan, Python akan:
+
+1. Memeriksa apakah kapasitas memori masih tersedia.
+
+2. Jika masih ada ruang:
+
+   * Data langsung ditambahkan.
+   * Operasi berlangsung sangat cepat.
+
+3. Jika kapasitas penuh:
+
+   * Python membuat blok memori baru dengan ukuran lebih besar.
+   * Seluruh elemen lama disalin ke memori baru.
+   * Data baru ditambahkan.
+   * Memori lama dilepaskan.
+
+Contoh proses:
+
+```text
+Kapasitas awal: 4
+[1,2,3,4]
+
+Append 5:
+- Buat array baru kapasitas lebih besar
+- Copy seluruh data lama
+- Tambahkan 5
+```
+
+Proses resize ini membutuhkan waktu O(n) karena seluruh elemen harus disalin ulang.
+
+Namun, resize tidak terjadi setiap append. Python biasanya menambah kapasitas lebih besar dari kebutuhan saat ini agar resize tidak terlalu sering dilakukan.
+
+Karena itu:
+
+* Sebagian besar append berlangsung dalam O(1)
+* Resize sesekali berlangsung O(n)
+
+Secara keseluruhan, append pada Dynamic Array dianggap memiliki kompleksitas amortized O(1).
+
+Keuntungan Dynamic Array:
+
+* Ukuran fleksibel
+* Mudah digunakan
+* Akses data tetap cepat seperti array biasa
+
+Kekurangannya:
+
+* Resize membutuhkan penyalinan data
+* Kadang menggunakan memori lebih besar dari jumlah data sebenarnya karena adanya kapasitas cadangan (overallocation)",https://github.com/ReihanWaiswana/StrukturData-Q1-2501010122-DewaGedeReihanWaiswana-D.git,87.18,80.39,78.33,"{""over_allocation"": 80.0, ""proses_penyalinan"": 80.0, ""manajemen_memori_lama"": 75.0}",0.0,82
+MHS_10,1,Struktur Data,Alokasi Baru: Python mengalokasikan blok memori baru yang lebih besar (biasanya dengan faktor pertumbuhan tertentu).,https://github.com/Dekd3/Quiz-Struktur-Data,67.99,85.69,81.67,"{""landasan_teori_memori"": 85.0, ""analisis_kompleksitas"": 80.0, ""kesimpulan_perbandingan"": 80.0}",0.0,77
+MHS_10,2,Struktur Data,Menyalin Data: Semua elemen dari array lama disalin ke blok memori array yang baru secara berurutan.,https://github.com/Dekd3/Quiz-Struktur-Data,84.02,82.35,85.0,"{""kondisi_keunggulan"": 90.0, ""alasan_teoritis_pointer"": 80.0}",0.0,84
+MHS_10,3,Struktur Data,Penghapusan: Memori array lama dilepaskan/dihapus.,https://github.com/Dekd3/Quiz-Struktur-Data,84.27,80.86,80.0,"{""anatomi_node"": 85.0, ""dampak_overhead_memori"": 75.0, ""fleksibilitas_traversal"": 80.0}",0.0,82
+MHS_10,4,Struktur Data,Penyisipan: Elemen baru akhirnya ditambahkan ke ruang kosong yang baru dibuat.,https://github.com/Dekd3/Quiz-Struktur-Data,78.07,79.41,87.5,"{""perbedaan_teoritis_cincin"": 90.0, ""kesesuaian_use_case"": 85.0}",0.0,81
+MHS_10,5,Struktur Data,"Array Dinamis di Python 
+Meskipun terlihat sangat fleksibel, tipe data list di Python secara internal adalah Dynamic Array. Ketika kapasitas internalnya penuh saat melakukan append, terjadi mekanisme berikut:
+1.	Alokasi Baru: Python mengalokasikan blok memori baru yang lebih besar (biasanya dengan faktor pertumbuhan tertentu).
+2.	Menyalin Data: Semua elemen dari array lama disalin ke blok memori array yang baru secara berurutan.
+3.	Penghapusan: Memori array lama dilepaskan/dihapus.
+4.	Penyisipan: Elemen baru akhirnya ditambahkan ke ruang kosong yang baru dibuat.",https://github.com/Dekd3/Quiz-Struktur-Data,65.64,72.37,78.33,"{""over_allocation"": 80.0, ""proses_penyalinan"": 80.0, ""manajemen_memori_lama"": 75.0}",0.0,71
+MHS_11,1,Struktur Data,"Karakteristik Memori dan Akses Data
+
+Array memiliki akses data dengan kompleksitas waktu O(1) karena data disimpan secara berurutan (kontinu) di memori. Setiap elemen memiliki indeks sehingga alamat memori dapat dihitung langsung. Karena itu, elemen dapat diakses tanpa menelusuri data lain.
+
+Sedangkan pada Singly Linked List, data disimpan secara tidak berurutan (non-kontinu). Setiap node hanya memiliki data dan pointer ke node berikutnya. Untuk mencari elemen tertentu harus menelusuri node satu per satu dari awal sehingga kompleksitas waktunya O(n).
+
+##",https://github.com/arlylelu25-debug/StrukturData-Q1-2501010335-MariaIndrianiLeluTers-D/blob/main/README.md,65.79,84.0,81.67,"{""landasan_teori_memori"": 85.0, ""analisis_kompleksitas"": 80.0, ""kesimpulan_perbandingan"": 80.0}",0.0,76
+MHS_11,2,Struktur Data,"Analisis Efisiensi Operasi Manipulasi
+
+Linked List lebih unggul dibandingkan Array pada operasi insertion dan deletion ketika data sering berubah atau penyisipan dilakukan di tengah data.
+
+Pada Array, insertion dan deletion memerlukan pergeseran elemen sehingga membutuhkan waktu O(n). Sedangkan pada Linked List cukup mengubah pointer antar node tanpa memindahkan data lain. Jika posisi node sudah diketahui maka operasi dapat dilakukan dalam O(1).
+
+##",https://github.com/arlylelu25-debug/StrukturData-Q1-2501010335-MariaIndrianiLeluTers-D/blob/main/README.md,72.86,81.19,85.0,"{""kondisi_keunggulan"": 90.0, ""alasan_teoritis_pointer"": 80.0}",0.0,79
+MHS_11,3,Struktur Data,"Konsep Doubly Linked List
+
+Node pada Doubly Linked List terdiri dari:
+
+* Data
+* Pointer next
+* Pointer prev
+
+Pointer tambahan membuat penggunaan memori lebih besar dibandingkan Singly Linked List. Namun, penelusuran dapat dilakukan dua arah, maju dan mundur, sehingga lebih fleksibel dan mempermudah operasi deletion.
+
+##",https://github.com/arlylelu25-debug/StrukturData-Q1-2501010335-MariaIndrianiLeluTers-D/blob/main/README.md,87.69,75.48,80.0,"{""anatomi_node"": 85.0, ""dampak_overhead_memori"": 75.0, ""fleksibilitas_traversal"": 80.0}",0.0,82
+MHS_11,4,Struktur Data,"Mekanisme Circular Linked List
+
+Circular Linked List memiliki node terakhir yang menunjuk kembali ke node pertama sehingga membentuk lingkaran. Berbeda dengan Linked List biasa yang node terakhirnya bernilai NULL.
+
+Contoh penggunaan Circular Linked List adalah sistem Round Robin Scheduling karena proses dapat berjalan terus menerus secara bergiliran.
+
+##",https://github.com/arlylelu25-debug/StrukturData-Q1-2501010335-MariaIndrianiLeluTers-D/blob/main/README.md,75.26,86.62,87.5,"{""perbedaan_teoritis_cincin"": 90.0, ""kesesuaian_use_case"": 85.0}",0.0,82
+MHS_11,5,Struktur Data,"Array Dinamis di Python
+
+Python list menggunakan Dynamic Array. Ketika kapasitas penuh saat append dilakukan, Python akan membuat array baru dengan ukuran lebih besar lalu menyalin seluruh data dari array lama ke array baru.
+
+Proses ini membutuhkan waktu O(n) karena data harus disalin ulang, tetapi append tetap dianggap O(1) secara rata-rata (amortized).",https://github.com/arlylelu25-debug/StrukturData-Q1-2501010335-MariaIndrianiLeluTers-D/blob/main/README.md,70.72,71.69,78.33,"{""over_allocation"": 80.0, ""proses_penyalinan"": 80.0, ""manajemen_memori_lama"": 75.0}",0.0,73
+MHS_12,1,Struktur Data,"membuat array baru dengan ukuran lebih besar,",https://github.com/naufalqy/StrukturData-Q1-2501010380-Naufal-Rifqi-Attallah-D,72.24,73.55,81.67,"{""landasan_teori_memori"": 85.0, ""analisis_kompleksitas"": 80.0, ""kesimpulan_perbandingan"": 80.0}",0.0,75
+MHS_12,2,Struktur Data,"menyalin seluruh elemen lama ke array baru,",https://github.com/naufalqy/StrukturData-Q1-2501010380-Naufal-Rifqi-Attallah-D,88.24,87.78,85.0,"{""kondisi_keunggulan"": 90.0, ""alasan_teoritis_pointer"": 80.0}",0.0,87
+MHS_12,3,Struktur Data,"menambahkan elemen baru,",https://github.com/naufalqy/StrukturData-Q1-2501010380-Naufal-Rifqi-Attallah-D,80.84,89.17,80.0,"{""anatomi_node"": 85.0, ""dampak_overhead_memori"": 75.0, ""fleksibilitas_traversal"": 80.0}",0.0,83
+MHS_12,4,Struktur Data,"menghapus array lama.
+
+Proses ini disebut resizing.
+
+Contoh:
+
+```python
+data = [1, 2, 3]
+data.append(4)
+```
+
+Walaupun resize membutuhkan penyalinan data dan dapat memakan waktu O(n), operasi append pada Python tetap dianggap efisien secara rata-rata atau amortized O(1).
+
+Karena itu Dynamic Array tetap banyak digunakan pada Python list untuk mendukung ukuran data yang fleksibel.",https://github.com/naufalqy/StrukturData-Q1-2501010380-Naufal-Rifqi-Attallah-D,85.09,74.1,87.5,"{""perbedaan_teoritis_cincin"": 90.0, ""kesesuaian_use_case"": 85.0}",0.0,83
+MHS_12,5,Struktur Data,"Array Dinamis di Python
+
+Python list diimplementasikan menggunakan Dynamic Array. Saat operasi `append` dilakukan dan kapasitas array masih tersedia, data akan langsung ditambahkan.
+
+Namun jika kapasitas memori penuh, Python akan melakukan proses:
+
+1. membuat array baru dengan ukuran lebih besar,
+2. menyalin seluruh elemen lama ke array baru,
+3. menambahkan elemen baru,
+4. menghapus array lama.
+
+Proses ini disebut resizing.
+
+Contoh:
+
+```python
+data = [1, 2, 3]
+data.append(4)
+```
+
+Walaupun resize membutuhkan penyalinan data dan dapat memakan waktu O(n), operasi append pada Python tetap dianggap efisien secara rata-rata atau amortized O(1).
+
+Karena itu Dynamic Array tetap banyak digunakan pada Python list untuk mendukung ukuran data yang fleksibel.",https://github.com/naufalqy/StrukturData-Q1-2501010380-Naufal-Rifqi-Attallah-D,87.31,81.87,78.33,"{""over_allocation"": 80.0, ""proses_penyalinan"": 80.0, ""manajemen_memori_lama"": 75.0}",0.0,83
+MHS_13,1,Struktur Data,"karena seluruh elemennya disimpan pada lokasi memori yang bersifat kontinu atau bersebelahan. Dengan susunan seperti ini, komputer dapat langsung menghitung alamat suatu elemen menggunakan alamat awal array dan indeks elemen yang dicari. Karena alamat elemen dapat diketahui secara langsung tanpa harus melewati elemen lain, maka waktu akses menjadi sangat cepat dan tidak dipengaruhi oleh banyaknya data.
+
+
+Berbeda dengan Array, Singly Linked List memerlukan waktu O(n) untuk mengakses elemen tertentu karena node-node pada struktur ini tersimpan secara non-kontinu di memori. Setiap node hanya menyimpan data dan pointer menuju node berikutnya. Oleh sebab itu, untuk menemukan suatu elemen, sistem harus memulai penelusuran dari node pertama (head) lalu mengikuti pointer satu per satu hingga mencapai node tujuan. Semakin jauh posisi elemen yang dicari, semakin lama proses aksesnya.
+
+---
+
+## 2] Analisis Efisiensi Operasi Manipulasi
+
+> Dalam kondisi apa sebuah Linked List lebih diunggulkan dibandingkan Array untuk operasi penyisipan (insertion) dan penghapusan (deletion) data? Berikan alasan teoritisnya.
+
+Linked List lebih unggul dibandingkan Array pada operasi penyisipan dan penghapusan data, khususnya ketika proses dilakukan di bagian tengah atau awal struktur data, serta saat ukuran data sering berubah secara dinamis.
+
+Pada Array, data disimpan secara berurutan di memori. Akibatnya, ketika dilakukan insertion atau deletion pada posisi tertentu, elemen-elemen setelah posisi tersebut harus digeser agar urutan indeks tetap terjaga. Proses pergeseran ini membutuhkan waktu O(n), sehingga kurang efisien jika data berjumlah besar atau sering dimodifikasi.
+
+Sementara itu, pada Linked List, setiap node saling terhubung menggunakan pointer dan tidak disimpan secara bersebelahan di memori. Karena itu, proses insertion dan deletion tidak memerlukan pergeseran elemen, melainkan hanya perubahan hubungan pointer antar node. Jika posisi node yang akan dimanipulasi sudah diketahui, maka operasi tersebut dapat dilakukan dengan kompleksitas O(1).
+
+---
+
+## 3] Konsep Doubly Linked List
+
+> Jelaskan struktur anatomi dari sebuah node pada Doubly Linked List. Apa dampak keberadaan pointer tambahan tersebut terhadap penggunaan memori serta fleksibilitas penelusuran dibandingkan dengan Singly Linked List?
+
+Pada Doubly Linked List, setiap node terdiri dari tiga bagian utama, yaitu:
+
+Data
+Pointer ke node berikutnya (next)
+Pointer ke node sebelumnya (prev)
+
+Dengan struktur tersebut, setiap node dapat terhubung ke dua arah, baik maju maupun mundur.
+
+Adanya pointer tambahan berupa prev menyebabkan penggunaan memori menjadi lebih besar dibandingkan Singly Linked List, karena setiap node harus menyimpan satu pointer ekstra. Dengan demikian, kebutuhan memori pada Doubly Linked List lebih tinggi.
+
+Walaupun begitu, pointer tambahan tersebut memberikan keuntungan dalam fleksibilitas penelusuran data. Jika pada Singly Linked List traversal hanya dapat dilakukan dari head menuju tail, maka pada Doubly Linked List traversal bisa dilakukan dari dua arah. Selain itu, proses penghapusan node juga menjadi lebih efisien karena node sebelumnya dapat diakses secara langsung tanpa harus menelusuri ulang dari awal list.
+
+---
+
+## 4] Mekanisme Circular Linked List
+
+> Apa yang membedakan Circular Linked List dari Linked List biasa secara teoritis? Sebutkan satu contoh skenario penggunaan (use case) di mana struktur melingkar ini lebih
+efektif digunakan.
+
+Perbedaan utama antara Circular Linked List dan Linked List biasa terletak pada hubungan node terakhirnya. Pada Linked List biasa, node terakhir akan menunjuk ke NULL sebagai tanda akhir struktur. Sedangkan pada Circular Linked List, node terakhir justru menunjuk kembali ke node pertama (head), sehingga membentuk struktur melingkar tanpa akhir.
+
+Salah satu contoh penggunaan Circular Linked List adalah pada fitur playlist musik dengan mode repeat.
+
+Dalam aplikasi pemutar musik, daftar lagu dapat diputar secara terus-menerus. Dengan Circular Linked List, setelah lagu terakhir selesai diputar, sistem dapat langsung kembali ke lagu pertama secara otomatis tanpa perlu melakukan reset traversal dari awal.
+
+---
+
+## 5] Array Dinamis di Python
+
+> Python list secara internal diimplementasikan sebagai Dynamic Array. Jelaskan mekanisme yang terjadi ”di balik layar” ketika sebuah Dynamic Array kehabisan kapasitas saat
+
+Python list yang menggunakan konsep Dynamic Array memiliki kapasitas memori tertentu. Ketika operasi append dilakukan, elemen baru akan dimasukkan ke ruang yang masih tersedia. Namun, apabila kapasitas array sudah penuh, maka Python akan melakukan proses resizing secara otomatis.
+
+Pada proses ini, Python membuat array baru dengan kapasitas yang lebih besar daripada sebelumnya. Biasanya kapasitas baru ditambah lebih dari satu slot agar proses penambahan data berikutnya tidak terlalu sering melakukan resizing. Setelah array baru dibuat, seluruh elemen dari array lama akan disalin ke array baru tersebut. Selanjutnya, elemen baru hasil append dimasukkan, lalu array lama akan dibebaskan dari memori.
+
+Proses penyalinan elemen ini membutuhkan waktu O(n) karena semua data harus dipindahkan ke array baru. Namun karena resizing tidak terjadi setiap kali append dilakukan, maka secara rata-rata (amortized), operasi append pada Python list tetap memiliki kompleksitas O(1).
+
+---",https://github.com/Doremika452/Quis-StrukturData.git,85.19,89.71,81.67,"{""landasan_teori_memori"": 85.0, ""analisis_kompleksitas"": 80.0, ""kesimpulan_perbandingan"": 80.0}",0.0,85
+MHS_13,2,Struktur Data,Mahasiswa tidak memberikan jawaban atau format penulisan tidak dikenali oleh sistem Parser.,https://github.com/Doremika452/Quis-StrukturData.git,72.95,72.42,85.0,"{""kondisi_keunggulan"": 90.0, ""alasan_teoritis_pointer"": 80.0}",0.0,76
+MHS_13,3,Struktur Data,Mahasiswa tidak memberikan jawaban atau format penulisan tidak dikenali oleh sistem Parser.,https://github.com/Doremika452/Quis-StrukturData.git,70.7,79.4,80.0,"{""anatomi_node"": 85.0, ""dampak_overhead_memori"": 75.0, ""fleksibilitas_traversal"": 80.0}",0.0,76
+MHS_13,4,Struktur Data,Mahasiswa tidak memberikan jawaban atau format penulisan tidak dikenali oleh sistem Parser.,https://github.com/Doremika452/Quis-StrukturData.git,85.45,88.94,87.5,"{""perbedaan_teoritis_cincin"": 90.0, ""kesesuaian_use_case"": 85.0}",0.0,87
+MHS_13,5,Struktur Data,Mahasiswa tidak memberikan jawaban atau format penulisan tidak dikenali oleh sistem Parser.,https://github.com/Doremika452/Quis-StrukturData.git,65.17,81.24,78.33,"{""over_allocation"": 80.0, ""proses_penyalinan"": 80.0, ""manajemen_memori_lama"": 75.0}",0.0,74
+MHS_14,1,Struktur Data,"Array bisa mengakses elemen dengan sangat cepat dalam O(1) karena datanya tersusun berurutan di memori, jadi alamatnya bisa langsung dihitung, sedangkan pada Singly Linked List butuh waktu O(n) karena datanya tidak berurutan dan harus dicek satu per satu dari awal.",https://github.com/agungsayang502-sketch/StrukturData-Q1-2501010017-AnakAgungGedeAnomRanggaPratama-A.git,75.44,74.89,81.67,"{""landasan_teori_memori"": 85.0, ""analisis_kompleksitas"": 80.0, ""kesimpulan_perbandingan"": 80.0}",0.0,77
+MHS_14,2,Struktur Data,"Linked List lebih unggul dikarenakan untuk proses menambah atau menghapus data,  di bagian awal atau tengah, hanya cukup mengubah pointer tanpa perlu menggeser elemen lain seperti yang terjadi pada array yang memakan waktu O(n).",https://github.com/agungsayang502-sketch/StrukturData-Q1-2501010017-AnakAgungGedeAnomRanggaPratama-A.git,68.0,77.43,85.0,"{""kondisi_keunggulan"": 90.0, ""alasan_teoritis_pointer"": 80.0}",0.0,76
+MHS_14,3,Struktur Data,"Pada Doubly Linked List, setiap node memiliki data serta dua pointer yaitu next dan prev, sehingga memang membutuhkan memori lebih besar, tetapi membuat proses penelusuran dan pengolahan data jadi lebih fleksibel karena bisa dilakukan dua arah.",https://github.com/agungsayang502-sketch/StrukturData-Q1-2501010017-AnakAgungGedeAnomRanggaPratama-A.git,88.57,77.11,80.0,"{""anatomi_node"": 85.0, ""dampak_overhead_memori"": 75.0, ""fleksibilitas_traversal"": 80.0}",0.0,83
+MHS_14,4,Struktur Data,"Circular Linked List berbeda dari linked list biasa karena bagian akhirnya tidak bernilai null, melainkan kembali ke awal (head), sehingga membentuk lingkaran yang cocok digunakan pada sistem seperti round robin.",https://github.com/agungsayang502-sketch/StrukturData-Q1-2501010017-AnakAgungGedeAnomRanggaPratama-A.git,77.97,85.47,87.5,"{""perbedaan_teoritis_cincin"": 90.0, ""kesesuaian_use_case"": 85.0}",0.0,83
+MHS_14,5,Struktur Data,"Pada Python, list adalah dynamic array yang akan memperbesar kapasitasnya saat penuh dengan membuat array baru dan menyalin data lama, sehingga operasi append umumnya terasa cepat (O(1) amortized) walaupun kadang bisa menjadi O(n).",https://github.com/agungsayang502-sketch/StrukturData-Q1-2501010017-AnakAgungGedeAnomRanggaPratama-A.git,74.09,91.38,78.33,"{""over_allocation"": 80.0, ""proses_penyalinan"": 80.0, ""manajemen_memori_lama"": 75.0}",0.0,81
+MHS_15,1,Struktur Data,[Error] Gagal mengekstrak data dari GitHub.,https://github.com/arlyna09/StrukturData-1--2501010355-Arlina/tree/main,0.0,0.0,0.0,{},0.0,0
+MHS_15,2,Struktur Data,[Error] Gagal mengekstrak data dari GitHub.,https://github.com/arlyna09/StrukturData-1--2501010355-Arlina/tree/main,0.0,0.0,0.0,{},0.0,0
+MHS_15,3,Struktur Data,[Error] Gagal mengekstrak data dari GitHub.,https://github.com/arlyna09/StrukturData-1--2501010355-Arlina/tree/main,0.0,0.0,0.0,{},0.0,0
+MHS_15,4,Struktur Data,[Error] Gagal mengekstrak data dari GitHub.,https://github.com/arlyna09/StrukturData-1--2501010355-Arlina/tree/main,0.0,0.0,0.0,{},0.0,0
+MHS_15,5,Struktur Data,[Error] Gagal mengekstrak data dari GitHub.,https://github.com/arlyna09/StrukturData-1--2501010355-Arlina/tree/main,0.0,0.0,0.0,{},0.0,0
+MHS_16,1,Struktur Data,"Karateristik memori dan akses data
+Array cepat (O(1)) karena elemen disimpan bersebelahan sehingga alamat elemen dapat dihitung langsung secara matematis.
+Singly Linked List lebih lambat (O(n)) karena elemen tersebar di memori dan harus diakses secara berurutan melalui pointer.
+##",https://github.com/Ranycantik/StrukturData-Q1-2501010369-KatarinaGita-A,89.06,75.54,81.67,"{""landasan_teori_memori"": 85.0, ""analisis_kompleksitas"": 80.0, ""kesimpulan_perbandingan"": 80.0}",0.0,83
+MHS_16,2,Struktur Data,"Analisis Efisiensi Operasi Manipulasi
+Linked List lebih diunggulkan ketika program sering melakukan penyisipan dan penghapusan data di tengah atau awal struktur data, terutama jika posisi node sudah diketahui.
+##",https://github.com/Ranycantik/StrukturData-Q1-2501010369-KatarinaGita-A,77.43,76.62,85.0,"{""kondisi_keunggulan"": 90.0, ""alasan_teoritis_pointer"": 80.0}",0.0,79
+MHS_16,3,Struktur Data,"Konsep Doubly Linked List
+Node pada Doubly Linked List terdiri dari tiga bagian utama, yaitu pointer ke node sebelumnya (prev), data, dan pointer ke node berikutnya (next). Struktur ini berbeda dengan Singly Linked List yang hanya memiliki satu pointer next.
+Adanya pointer tambahan prev membuat penggunaan memori pada Doubly Linked List menjadi lebih besar, karena setiap node harus menyimpan dua alamat memori sekaligus, yaitu alamat node sebelumnya dan node berikutnya. Secara kompleksitas ruang tetap O(n), tetapi kebutuhan memorinya lebih banyak dibandingkan Singly Linked List.
+##",https://github.com/Ranycantik/StrukturData-Q1-2501010369-KatarinaGita-A,72.12,70.81,80.0,"{""anatomi_node"": 85.0, ""dampak_overhead_memori"": 75.0, ""fleksibilitas_traversal"": 80.0}",0.0,74
+MHS_16,4,Struktur Data,"makanisme circukar linked listCircular Linked List
+makanisme circukar linked listCircular Linked List berbeda dari Linked List biasa pada bagian node terakhir. Pada Linked List biasa, node terakhir memiliki pointer next = NULL, yang menandakan akhir dari list. Sedangkan pada Circular Linked List, pointer next pada node terakhir akan kembali menunjuk ke node pertama (head) sehingga membentuk struktur melingkar.
+##",https://github.com/Ranycantik/StrukturData-Q1-2501010369-KatarinaGita-A,80.24,81.06,87.5,"{""perbedaan_teoritis_cincin"": 90.0, ""kesesuaian_use_case"": 85.0}",0.0,83
+MHS_16,5,Struktur Data,"array dinamis
+saat kapasitas Python list penuh, sistem akan mengalokasikan memori baru yang lebih besar, menyalin seluruh elemen lama, lalu menambahkan elemen baru. Mekanisme ini membuat list dapat bertambah ukuran secara otomatis tanpa perlu ditentukan sejak awal. Meskipun proses resize sesekali membutuhkan waktu O(n), secara rata-rata operasi append tetap efisien dengan kompleksitas O(1) amortized.",https://github.com/Ranycantik/StrukturData-Q1-2501010369-KatarinaGita-A,66.29,76.13,78.33,"{""over_allocation"": 80.0, ""proses_penyalinan"": 80.0, ""manajemen_memori_lama"": 75.0}",0.0,73
+MHS_17,1,Struktur Data,"Python membuat array baru dengan kapasitas yang lebih besar (biasanya tidak cuma +1, tapi langsung dilipatgandakan atau ditambah sekian persen biar efisien).",https://github.com/Wilsaadwi/StrukturData-Q1-2501010009-WilsaDwiAmeliaH-A-IF.git,87.71,75.27,81.67,"{""landasan_teori_memori"": 85.0, ""analisis_kompleksitas"": 80.0, ""kesimpulan_perbandingan"": 80.0}",0.0,82
+MHS_17,2,Struktur Data,Semua elemen lama disalin (copy) ke array baru.,https://github.com/Wilsaadwi/StrukturData-Q1-2501010009-WilsaDwiAmeliaH-A-IF.git,68.62,80.77,85.0,"{""kondisi_keunggulan"": 90.0, ""alasan_teoritis_pointer"": 80.0}",0.0,77
+MHS_17,3,Struktur Data,Elemen baru dimasukkan ke array tersebut.,https://github.com/Wilsaadwi/StrukturData-Q1-2501010009-WilsaDwiAmeliaH-A-IF.git,89.64,75.33,80.0,"{""anatomi_node"": 85.0, ""dampak_overhead_memori"": 75.0, ""fleksibilitas_traversal"": 80.0}",0.0,82
+MHS_17,4,Struktur Data,"Array lama tidak dipakai lagi.
+
+Karena ada proses menyalin semua data, maka saat resize terjadi, kompleksitas waktunya jadi O(n).
+
+Tapi karena resize ini tidak terjadi setiap kali append (jarang terjadi), maka secara keseluruhan atau rata-rata (amortized), operasi append tetap dianggap O(1).
+
+Selain itu, dari sisi memori:
+
+* Dynamic array biasanya punya ruang kosong (unused space) untuk menghindari resize terlalu sering.
+  
+* Ini membuat penggunaan memori sedikit lebih besar, tapi jauh lebih efisien dari sisi performa.
+
+Jadi intinya, Python list itu cepat untuk penambahan data karena pakai strategi resize yang jarang, walaupun sesekali ada biaya mahal saat harus menyalin seluruh elemen.",https://github.com/Wilsaadwi/StrukturData-Q1-2501010009-WilsaDwiAmeliaH-A-IF.git,81.8,86.76,87.5,"{""perbedaan_teoritis_cincin"": 90.0, ""kesesuaian_use_case"": 85.0}",0.0,85
+MHS_17,5,Struktur Data,"Array Dinamis di Python
+
+Python list sebenarnya diimplementasikan sebagai dynamic array, yaitu array yang kapasitasnya bisa bertambah secara otomatis tanpa harus kita atur manual.
+
+Di balik layar, Python tidak langsung menambah 1 slot setiap kali append, tapi dia punya konsep kapasitas (capacity) dan jumlah elemen (size). Kapasitas biasanya lebih besar dari jumlah elemen yang sedang dipakai.
+
+Saat melakukan append, ada dua kemungkinan:
+
+* Kalau kapasitas masih cukup → elemen langsung ditambahkan, jadi prosesnya cepat (O(1)).
+  
+* Kalau kapasitas sudah penuh → Python akan melakukan proses resize.
+
+Proses resize :
+
+1. Python membuat array baru dengan kapasitas yang lebih besar (biasanya tidak cuma +1, tapi langsung dilipatgandakan atau ditambah sekian persen biar efisien).
+2. Semua elemen lama disalin (copy) ke array baru.
+3. Elemen baru dimasukkan ke array tersebut.
+4. Array lama tidak dipakai lagi.
+
+Karena ada proses menyalin semua data, maka saat resize terjadi, kompleksitas waktunya jadi O(n).
+
+Tapi karena resize ini tidak terjadi setiap kali append (jarang terjadi), maka secara keseluruhan atau rata-rata (amortized), operasi append tetap dianggap O(1).
+
+Selain itu, dari sisi memori:
+
+* Dynamic array biasanya punya ruang kosong (unused space) untuk menghindari resize terlalu sering.
+  
+* Ini membuat penggunaan memori sedikit lebih besar, tapi jauh lebih efisien dari sisi performa.
+
+Jadi intinya, Python list itu cepat untuk penambahan data karena pakai strategi resize yang jarang, walaupun sesekali ada biaya mahal saat harus menyalin seluruh elemen.",https://github.com/Wilsaadwi/StrukturData-Q1-2501010009-WilsaDwiAmeliaH-A-IF.git,70.94,86.02,78.33,"{""over_allocation"": 80.0, ""proses_penyalinan"": 80.0, ""manajemen_memori_lama"": 75.0}",0.0,78
+MHS_18,1,Struktur Data,[Error] Gagal mengekstrak data dari GitHub.,https://github.com/Japa-67/StrukturData-Q1-2501010221-Japa-A/tree/main,0.0,0.0,0.0,{},0.0,0
+MHS_18,2,Struktur Data,[Error] Gagal mengekstrak data dari GitHub.,https://github.com/Japa-67/StrukturData-Q1-2501010221-Japa-A/tree/main,0.0,0.0,0.0,{},0.0,0
+MHS_18,3,Struktur Data,[Error] Gagal mengekstrak data dari GitHub.,https://github.com/Japa-67/StrukturData-Q1-2501010221-Japa-A/tree/main,0.0,0.0,0.0,{},0.0,0
+MHS_18,4,Struktur Data,[Error] Gagal mengekstrak data dari GitHub.,https://github.com/Japa-67/StrukturData-Q1-2501010221-Japa-A/tree/main,0.0,0.0,0.0,{},0.0,0
+MHS_18,5,Struktur Data,[Error] Gagal mengekstrak data dari GitHub.,https://github.com/Japa-67/StrukturData-Q1-2501010221-Japa-A/tree/main,0.0,0.0,0.0,{},0.0,0
+MHS_19,1,Struktur Data,"Memori dan Akses Data
+Jelaskan mengapa operasi akses elemen pada Array dapat dilakukan dalam waktu konstan
+O(1), sedangkan pada Singly Linked List membutuhkan waktu linear O(n). Hubungkan
+jawaban Anda dengan konsep alamat memori (kontinu vs non-kontinu).
+
+Jawaban : 
+
+Array bisa mengakses elemen tertentu dengan cepat dalam waktu O(1) karena elemen-elemennya tersimpan berurutan di memori. Alamat elemen ke-n langsung dihitung dari alamat awal ditambah perkalian indeks dengan ukuran elemen, tanpa perlu mencari-cari. Berbeda dengan singly linked list, elemennya tersebar di memori dan hanya terhubung lewat pointer ke elemen berikutnya, sehingga harus dilalui satu per satu dari awal hingga target—ini yang membuatnya butuh waktu O(n).",https://github.com/HenryErsya/StrukturData-Q1-2501010237-HenryErsyaTryasPutra-A/blob/main/README.md,74.19,83.91,81.67,"{""landasan_teori_memori"": 85.0, ""analisis_kompleksitas"": 80.0, ""kesimpulan_perbandingan"": 80.0}",0.0,79
+MHS_19,2,Struktur Data,"Efisiensi Operasi Manipulasi
+Dalam kondisi apa sebuah Linked List lebih diunggulkan dibandingkan Array untuk ope
+rasi penyisipan (insertion) dan penghapusan (deletion) data? Berikan alasan teoritisnya.
+
+Jawaban :
+
+Linked list lebih baik untuk menyisipkan atau menghapus data jika kita sudah tahu posisi pastinya, karena cukup mengubah pointer antar node tetangga, selesai dalam O(1). Array malah harus menggeser elemen-elemen lain agar tetap rapat di memori, yang memakan waktu O(n). Situasi idealnya adalah saat data sering berubah ukurannya di posisi tengah, seperti daftar tugas yang dinamis.scribd+1",https://github.com/HenryErsya/StrukturData-Q1-2501010237-HenryErsyaTryasPutra-A/blob/main/README.md,80.84,81.79,85.0,"{""kondisi_keunggulan"": 90.0, ""alasan_teoritis_pointer"": 80.0}",0.0,82
+MHS_19,3,Struktur Data,"Doubly Linked List
+Jelaskan struktur anatomi dari sebuah node pada Doubly Linked List. Apa dampak kebe
+radaan pointer tambahan tersebut terhadap penggunaan memori serta fleksibilitas pene
+lusuran dibandingkan dengan Singly Linked List?
+
+Jawaban :
+
+Setiap node di doubly linked list punya tiga bagian: data, pointer ke node berikutnya (next), dan pointer ke node sebelumnya (prev). Pointer tambahan ini menambah pemakaian memori sekitar satu pointer ekstra per node. Tapi manfaatnya besar, karena kita bisa menelusuri maju-mundur dengan mudah, tidak seperti singly linked list yang hanya satu arah",https://github.com/HenryErsya/StrukturData-Q1-2501010237-HenryErsyaTryasPutra-A/blob/main/README.md,67.26,88.38,80.0,"{""anatomi_node"": 85.0, ""dampak_overhead_memori"": 75.0, ""fleksibilitas_traversal"": 80.0}",0.0,77
+MHS_19,4,Struktur Data,"Circular Linked List
+Apa yang membedakan Circular Linked List dari Linked List biasa secara teoritis? Se
+butkan satu contoh skenario penggunaan (use case) di mana struktur melingkar ini lebih
+efektif digunakan.
+
+Jawaban :
+
+Pada linked list biasa, pointer terakhir menunjuk ke null sebagai tanda akhir. Circular linked list menyambungkan pointer terakhir kembali ke node pertama, membentuk lingkaran penuh. Ini berguna untuk kasus seperti penjadwalan proses di sistem operasi, di mana elemen bisa diakses secara berulang tanpa harus kembali ke awal dari nol.",https://github.com/HenryErsya/StrukturData-Q1-2501010237-HenryErsyaTryasPutra-A/blob/main/README.md,73.02,74.1,87.5,"{""perbedaan_teoritis_cincin"": 90.0, ""kesesuaian_use_case"": 85.0}",0.0,78
+MHS_19,5,Struktur Data,"Dinamis di Python
+Python list secara internal diimplementasikan sebagai Dynamic Array. Jelaskan meka
+nisme yang terjadi ”di balik layar” ketika sebuah Dynamic Array kehabisan kapasitas saat
+melakukan operasi append.
+
+Jawaban :
+
+Python list dibuat sebagai dynamic array yang selalu menyediakan ruang lebih dari yang dibutuhkan. Saat append melebihi kapasitas, ia membuat array baru yang lebih besar, menyalin isi lama ke sana, lalu membuang yang lama—proses ini disebut resizing. Rata-rata tetap efisien O(1), meski sesekali butuh O(n) saat menyalin.",https://github.com/HenryErsya/StrukturData-Q1-2501010237-HenryErsyaTryasPutra-A/blob/main/README.md,66.02,83.0,78.33,"{""over_allocation"": 80.0, ""proses_penyalinan"": 80.0, ""manajemen_memori_lama"": 75.0}",0.0,75
+MHS_20,1,Struktur Data,[Error] Gagal mengekstrak data dari GitHub.,https://github.com/maderadit22-lang/strukturdata-Q1-2501010365-IMADEPANDERADITYAPRAMESWARA-A/edit/main/README.md,0.0,0.0,0.0,{},0.0,0
+MHS_20,2,Struktur Data,[Error] Gagal mengekstrak data dari GitHub.,https://github.com/maderadit22-lang/strukturdata-Q1-2501010365-IMADEPANDERADITYAPRAMESWARA-A/edit/main/README.md,0.0,0.0,0.0,{},0.0,0
+MHS_20,3,Struktur Data,[Error] Gagal mengekstrak data dari GitHub.,https://github.com/maderadit22-lang/strukturdata-Q1-2501010365-IMADEPANDERADITYAPRAMESWARA-A/edit/main/README.md,0.0,0.0,0.0,{},0.0,0
+MHS_20,4,Struktur Data,[Error] Gagal mengekstrak data dari GitHub.,https://github.com/maderadit22-lang/strukturdata-Q1-2501010365-IMADEPANDERADITYAPRAMESWARA-A/edit/main/README.md,0.0,0.0,0.0,{},0.0,0
+MHS_20,5,Struktur Data,[Error] Gagal mengekstrak data dari GitHub.,https://github.com/maderadit22-lang/strukturdata-Q1-2501010365-IMADEPANDERADITYAPRAMESWARA-A/edit/main/README.md,0.0,0.0,0.0,{},0.0,0
+MHS_21,1,Struktur Data,"Karakteristik Memori dan Akses Data
+Jelaskan mengapa operasi akses elemen pada Array dapat dilakukan dalam waktu konstan
+O(1), sedangkan pada Singly Linked List membutuhkan waktu linear O(n). Hubungkan
+jawaban Anda dengan konsep alamat memori (kontinu vs non-kontinu).
+
+
+# JAWABAN : 
+Array disimpan dalam blok memori yang kontinu. Artinya, elemen-elemennya diletakkan berdampingan tanpa celah. Karena sifatnya yang berurutan dan setiap elemen memiliki ukuran yang sama, komputer tidak perlu mencari elemen satu per satu.
+
+Sebaliknya, Singly Linked List menggunakan memori non-kontinu. Karena setiap elemen (node) tersebar di lokasi memori yang acak.
+
+
+#",https://github.com/igustingurahdwiandikaputra-code/StrukturData-Q1-2501010016-IGUSTINGURAHDWIANDIKA-KLS-A.git,81.94,70.36,81.67,"{""landasan_teori_memori"": 85.0, ""analisis_kompleksitas"": 80.0, ""kesimpulan_perbandingan"": 80.0}",0.0,78
+MHS_21,2,Struktur Data,"Analisis Efisiensi Operasi Manipulasi
+Dalam kondisi apa sebuah Linked List lebih diunggulkan dibandingkan Array untuk operasi penyisipan (insertion) dan penghapusan (deletion) data? Berikan alasan teoritisnya.
+
+
+# JAWABAN :
+Linked List lebih unggul dibandingkan Array dalam kondisi sering terjadi penyisipan (insertion) atau penghapusan (deletion) di tengah atau awal struktur data, terutama jika jumlah elemennya sangat besar.
+
+Array: Saat menyisipkan elemen di tengah, semua elemen setelahnya harus digeser (shifting) satu posisi ke kanan untuk memberi ruang. Hal ini memakan waktu O(n).
+
+Linked List: Tidak ada pergeseran data. Anda hanya perlu mengubah arah pointer pada node tetangga untuk menyambungkan atau memutus hubungan. Operasi ini secara teknis adalah $O(1)$ jika posisi node yang akan dimanipulasi sudah ditemukan.
+
+#",https://github.com/igustingurahdwiandikaputra-code/StrukturData-Q1-2501010016-IGUSTINGURAHDWIANDIKA-KLS-A.git,77.8,74.98,85.0,"{""kondisi_keunggulan"": 90.0, ""alasan_teoritis_pointer"": 80.0}",0.0,79
+MHS_21,3,Struktur Data,"Konsep Doubly Linked List
+Jelaskan struktur anatomi dari sebuah node pada Doubly Linked List. Apa dampak keberadaan pointer tambahan tersebut terhadap penggunaan memori serta fleksibilitas penelusuran dibandingkan dengan Singly Linked List?
+
+# JAWABAN : 
+Sebuah node pada Doubly Linked List memiliki tiga komponen utama:
+
+Data: Nilai yang disimpan.
+
+Pointer Next: Alamat memori node berikutnya.
+
+Pointer Prev: Alamat memori node sebelumnya.
+
+Memori: Penggunaan memori lebih boros dibandingkan Single Linked List, karena setiap node harus menyimpan satu pointer tambahan (prev).
+
+Fleksibilitas: Jauh lebih fleksibel karena memungkinkan navigasi dua arah (maju dan mundur). Hal ini mempermudah operasi seperti menghapus node tertentu jika kita sudah memegang referensi node tersebut, tanpa harus mencari node sebelumnya dari awal.
+
+#",https://github.com/igustingurahdwiandikaputra-code/StrukturData-Q1-2501010016-IGUSTINGURAHDWIANDIKA-KLS-A.git,81.13,73.84,80.0,"{""anatomi_node"": 85.0, ""dampak_overhead_memori"": 75.0, ""fleksibilitas_traversal"": 80.0}",0.0,79
+MHS_21,4,Struktur Data,"Mekanisme Circular Linked List
+Apa yang membedakan Circular Linked List dari Linked List biasa secara teoritis? Sebutkan satu contoh skenario penggunaan (use case) di mana struktur melingkar ini lebihefektif digunakan.
+
+
+# JAWABAN :
+Secara teoritis, perbedaan utama terletak pada node terakhir (tail). Pada Linked List biasa, pointer next pada tail bernilai null. Pada Circular Linked List, pointer next pada tail kembali menunjuk ke head, sehingga membentuk lingkaran tanpa ujung.
+
+Penjadwalan Round Robin (Sistem Operasi): Digunakan untuk menggilir jatah waktu CPU antar aplikasi secara adil. Setelah aplikasi terakhir selesai diproses sebentar, sistem langsung kembali ke aplikasi pertama secara otomatis melalui struktur melingkar ini.
+
+
+#",https://github.com/igustingurahdwiandikaputra-code/StrukturData-Q1-2501010016-IGUSTINGURAHDWIANDIKA-KLS-A.git,82.27,78.51,87.5,"{""perbedaan_teoritis_cincin"": 90.0, ""kesesuaian_use_case"": 85.0}",0.0,83
+MHS_21,5,Struktur Data,"Array Dinamis di Python
+Python list secara internal diimplementasikan sebagai Dynamic Array. Jelaskan mekanisme yang terjadi ”di balik layar” ketika sebuah Dynamic Array kehabisan kapasitas saat
+melakukan operasi append.
+
+
+# JAWABAN : 
+Ketika sebuah list di Python kehabisan kapasitas saat melakukan append, terjadi mekanisme yang disebut Dynamic Resizing (Over-allocation):
+
+Alokasi Baru: Python akan memesan blok memori baru yang lebih besar.
+
+Penyalinan (Copying): Semua elemen dari array lama disalin ke array baru yang lebih luas.
+
+Penghapusan: Memori array yang lama dibebaskan (dihapus).
+
+Append: Elemen baru ditambahkan ke ruang kosong di array baru.",https://github.com/igustingurahdwiandikaputra-code/StrukturData-Q1-2501010016-IGUSTINGURAHDWIANDIKA-KLS-A.git,88.42,73.03,78.33,"{""over_allocation"": 80.0, ""proses_penyalinan"": 80.0, ""manajemen_memori_lama"": 75.0}",0.0,81

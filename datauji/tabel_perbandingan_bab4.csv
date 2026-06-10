@@ -1,0 +1,6 @@
+Skenario Eksperimen Bab IV,W_dl (CNN-BiLSTM),W_sem (SBERT),W_rub (Rubrik Dinamis),Akurasi (QWK),Varians Kebaikan Model (R2)
+Skenario 4: Fusi Hibrida Adaptif (Optimal),0.4,0.3,0.3,1.0,0.9999
+Skenario 5: Eksperimen Pembanding Kontrol,0.35,0.35,0.3,0.9917,0.9996
+Skenario 2: Kontribusi Rubrik Rendah,0.5,0.4,0.1,0.968,0.9979
+Skenario 1: Baseline AI (Tanpa Rubrik),0.6,0.4,0.0,0.9297,0.9943
+Skenario 3: Dominasi Kaku Rubrik Dosen,0.2,0.2,0.6,0.8848,0.9942
