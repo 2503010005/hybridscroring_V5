@@ -100,13 +100,11 @@ Final Assessment Decision
 HybridScoring_V5/
 │
 ├── api/                    # FastAPI backend
-├── client_demo/            # Frontend application
 ├── models/                 # Trained models
 ├── preprocessing/          # Data preparation utilities
 ├── training/               # Model training scripts
 ├── feedback/               # Feedback generation modules
 ├── config/                 # Configuration files
-├── notebooks/              # Experimental notebooks
 ├── dataset/                # Dataset references
 ├── requirements.txt
 └── README.md
